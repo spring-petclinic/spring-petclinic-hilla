@@ -5,4 +5,6 @@
 <suppressions>
 	<suppress files="[\\/]build.log" checks="NoHttp"/>
 	<suppress files=".+\.(jar|git|ico|p12|gif|jks|jpg|svg)" checks="NoHttp"/>
+	<suppress files="node_modules[\\/]" checks="NoHttp"/>
+	<suppress files="[\\/]tsconfig.json" checks="NoHttp"/>
 </suppressions>
