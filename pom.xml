@@ -27,12 +27,23 @@
     <webjars-jquery.version>2.2.4</webjars-jquery.version>
     <wro4j.version>1.8.0</wro4j.version>
 
+    <vaadin.version>22.0.0.alpha3</vaadin.version>
     <jacoco.version>0.8.5</jacoco.version>
     <nohttp-checkstyle.version>0.0.4.RELEASE</nohttp-checkstyle.version>
     <spring-format.version>0.0.25</spring-format.version>
   </properties>
 
   <dependencies>
+    <!-- Vaadin dependencies -->
+    <dependency>
+      <groupId>com.vaadin</groupId>
+      <!-- Replace artifactId with vaadin-core to use only free components -->
+      <artifactId>vaadin</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.vaadin</groupId>
+      <artifactId>vaadin-spring-boot-starter</artifactId>
+    </dependency>
     <!-- Spring and Spring Boot dependencies -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -267,6 +278,24 @@
           </dependency>
         </dependencies>
       </plugin>
+
+      <!--
+          Take care of synchronizing java dependencies and imports in
+          package.json and main.js files.
+          It also creates webpack.config.js if not exists yet.
+      -->
+      <plugin>
+        <groupId>com.vaadin</groupId>
+        <artifactId>vaadin-maven-plugin</artifactId>
+        <version>${vaadin.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>prepare-frontend</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 
@@ -278,6 +307,19 @@
   </licenses>
 
   <repositories>
+    <repository>
+      <id>central</id>
+      <url>https://repo.maven.apache.org/maven2</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>vaadin-prereleases</id>
+      <url>
+        https://maven.vaadin.com/vaadin-prereleases/
+      </url>
+    </repository>
     <repository>
       <id>spring-snapshots</id>
       <name>Spring Snapshots</name>
@@ -298,6 +340,19 @@
 
   <pluginRepositories>
     <pluginRepository>
+      <id>central</id>
+      <url>https://repo.maven.apache.org/maven2</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </pluginRepository>
+    <pluginRepository>
+      <id>vaadin-prereleases</id>
+      <url>
+        https://maven.vaadin.com/vaadin-prereleases/
+      </url>
+    </pluginRepository>
+    <pluginRepository>
       <id>spring-snapshots</id>
       <name>Spring Snapshots</name>
       <url>https://repo.spring.io/snapshot</url>
@@ -314,6 +369,18 @@
       </snapshots>
     </pluginRepository>
   </pluginRepositories>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.vaadin</groupId>
+        <artifactId>vaadin-bom</artifactId>
+        <version>${vaadin.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <profiles>
     <profile>
