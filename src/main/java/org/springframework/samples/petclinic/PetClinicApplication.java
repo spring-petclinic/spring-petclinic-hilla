@@ -18,6 +18,10 @@ package org.springframework.samples.petclinic;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+
+import com.vaadin.flow.component.page.AppShellConfigurator;
+import com.vaadin.flow.theme.Theme;
 
 /**
  * PetClinic Spring Boot Application.
@@ -26,7 +30,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  */
 @SpringBootApplication(proxyBeanMethods = false)
-public class PetClinicApplication {
+@Theme(value = "petclinic")
+public class PetClinicApplication extends SpringBootServletInitializer implements AppShellConfigurator {
 
 	public static void main(String[] args) {
 		SpringApplication.run(PetClinicApplication.class, args);
