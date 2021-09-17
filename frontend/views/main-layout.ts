@@ -32,6 +32,13 @@ export class MainLayout extends Layout {
           <h2 class="flex items-center h-xl m-0 px-m text-m">${appStore.applicationName}</h2>
           <nav aria-labelledby="views-title" class="border-b border-contrast-10 flex-grow overflow-auto">
             <h3 class="flex items-center h-m mx-m my-0 text-s text-tertiary" id="views-title">Views</h3>
+              <a class="flex mx-s p-s relative text-secondary"
+                href="/"
+                router-ignore
+              >
+                <span class="me-s text-l"></span>
+                <span class="font-medium text-s">Original Home</span>
+              </a>
             ${this.getMenuRoutes().map(
             (viewRoute) => html`
               <a
