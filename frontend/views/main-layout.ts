@@ -14,15 +14,15 @@ import { appStore } from '../stores/app-store';
 import { Layout } from './view';
 
 interface RouteInfo {
-    path: string;
-    title: string;
-    icon: string;
+  path: string;
+  title: string;
+  icon: string;
 }
 
 @customElement('main-layout')
 export class MainLayout extends Layout {
-    render() {
-        return html`
+  render() {
+    return html`
       <vaadin-app-layout primary-section="drawer">
         <header class="bg-base border-b border-contrast-10 box-border flex h-xl items-center w-full" slot="navbar">
           <vaadin-drawer-toggle aria-label="Menu toggle" class="text-secondary" theme="contrast"></vaadin-drawer-toggle>
@@ -34,15 +34,15 @@ export class MainLayout extends Layout {
             <h3 class="flex items-center h-m mx-m my-0 text-s text-tertiary" id="views-title">Views</h3>
             ${this.getMenuRoutes().map(
             (viewRoute) => html`
-                <a
-                  ?highlight=${viewRoute.path == appStore.location}
-                  class="flex mx-s p-s relative text-secondary"
-                  href=${router.urlForPath(viewRoute.path)}
-                >
-                  <span class="${viewRoute.icon} me-s text-l"></span>
-                  <span class="font-medium text-s">${viewRoute.title}</span>
-                </a>
-              `
+              <a
+                ?highlight=${viewRoute.path == appStore.location}
+                class="flex mx-s p-s relative text-secondary"
+                href=${router.urlForPath(viewRoute.path)}
+              >
+                <span class="${viewRoute.icon} me-s text-l"></span>
+                <span class="font-medium text-s">${viewRoute.title}</span>
+              </a>
+            `
         )}
           </nav>
           <footer class="flex items-center my-s px-m py-xs"></footer>
@@ -50,20 +50,20 @@ export class MainLayout extends Layout {
         <slot></slot>
       </vaadin-app-layout>
     `;
-    }
+  }
 
-    connectedCallback() {
-        super.connectedCallback();
-        this.classList.add('block', 'h-full');
-        this.reaction(
-            () => appStore.location,
-            () => {
-                AppLayoutElement.dispatchCloseOverlayDrawerEvent();
-            }
-        );
-    }
+  connectedCallback() {
+    super.connectedCallback();
+    this.classList.add('block', 'h-full');
+    this.reaction(
+      () => appStore.location,
+      () => {
+        AppLayoutElement.dispatchCloseOverlayDrawerEvent();
+      }
+    );
+  }
 
-    private getMenuRoutes(): RouteInfo[] {
-        return views.filter((route) => route.title) as RouteInfo[];
-    }
+  private getMenuRoutes(): RouteInfo[] {
+    return views.filter((route) => route.title) as RouteInfo[];
+  }
 }
