@@ -8,4 +8,5 @@
 	<suppress files="node_modules[\\/]" checks="NoHttp"/>
 	<suppress files="[\\/]tsconfig\.json" checks="NoHttp"/>
 	<suppress files="frontend[\\/]generated[\\/]" checks="NoHttp"/>
+	<suppress files="[\\/].+\.(iws|iml|ipr)" checks="NoHttp"/>
 </suppressions>
