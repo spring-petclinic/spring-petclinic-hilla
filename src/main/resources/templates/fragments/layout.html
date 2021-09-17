@@ -53,6 +53,11 @@
 
         <ul class="nav navbar-nav navbar-right">
 
+          <li th:replace="::menuItem ('/home-fusion','home-fusion','Home page with Vaadin Fusion','home','Home Fusion')">
+            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+            <span>Home Fusion</span>
+          </li>
+
           <li th:replace="::menuItem ('/','home','home page','home','Home')">
             <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
             <span>Home</span>
