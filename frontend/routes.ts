@@ -1,6 +1,7 @@
 import { Route } from '@vaadin/router';
 import './views/helloworld/hello-world-view';
 import './views/home-view';
+import './views/vets-view';
 import './views/main-layout';
 
 export type ViewRoute = Route & {
@@ -28,6 +29,12 @@ export const views: ViewRoute[] = [
     component: 'home-view',
     icon: '',
     title: 'Home',
+  },
+  {
+    path: 'vets-fusion',
+    component: 'vets-view',
+    icon: '',
+    title: 'Veterinarians',
   },
 ];
 export const routes: ViewRoute[] = [
