@@ -6,7 +6,12 @@ import { View } from '../views/view';
 export class HomeView extends View {
   render() {
     return html`
-      <p>Home view</p>
+      <h2>Welcome</h2>
+      <div class="row">
+        <div class="col-md-12">
+          <img class="img-responsive" src="/resources/images/pets.png"/>
+        </div>
+      </div>
     `;
   }
 }
