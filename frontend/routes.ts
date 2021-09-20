@@ -28,19 +28,19 @@ export const views: ViewRoute[] = [
   {
     path: 'home-fusion',
     component: 'home-view',
-    icon: '',
+    icon: 'la la-home',
     title: 'Home',
   },
   {
     path: 'vets-fusion',
     component: 'vets-view',
-    icon: '',
+    icon: 'la la-th-list',
     title: 'Veterinarians',
   },
   {
     path: 'error-fusion',
     component: 'error-view',
-    icon: '',
+    icon: 'la la-exclamation-triangle',
     title: 'Error',
   },
 ];

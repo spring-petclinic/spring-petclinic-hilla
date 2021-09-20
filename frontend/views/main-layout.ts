@@ -1,6 +1,7 @@
 import '@vaadin/vaadin-app-layout';
 import '@vaadin/vaadin-avatar/vaadin-avatar';
 import '@vaadin/vaadin-context-menu';
+import '@vaadin/vaadin-lumo-styles/utility';
 import '@vaadin/vaadin-tabs';
 import '@vaadin/vaadin-tabs/vaadin-tab';
 import { html } from 'lit';
@@ -22,15 +23,9 @@ export class MainLayout extends Layout {
     return html`
       <vaadin-app-layout>
         <header class="bg-base border-b border-contrast-10 box-border flex flex-col w-full" slot="navbar">
-          <div class="flex h-xl items-center px-l">
-            <h1 class="my-0 me-auto text-l">${appStore.applicationName}</h1>
-          </div>
           <nav class="flex gap-s overflow-auto px-m">
-            <a class="flex mx-s p-s relative text-secondary"
-              href="/"
-              router-ignore
-            >
-              <span class="me-s text-l"></span>
+            <a href="/" router-ignore class="flex mx-s p-s relative text-secondary">
+              <span class="la la-home me-s text-l"></span>
               <span class="font-medium text-s">Original Home</span>
             </a>
             ${this.getMenuRoutes().map(
@@ -48,9 +43,16 @@ export class MainLayout extends Layout {
     )}
           </nav>
         </header>
-        <slot></slot>
-        <div>
-          <img src="/resources/images/spring-pivotal-logo.png" alt="Sponsored by Pivotal" />
+        <div class="px-m">
+          <div class="mx-auto max-w-screen-lg my-xl">
+            <main>
+              <slot></slot>
+            </main>
+    
+            <footer class="mt-xl text-center">
+              <img src="/resources/images/spring-pivotal-logo.png" alt="Sponsored by Pivotal" />
+            </footer>
+          </div>
         </div>
       </vaadin-app-layout>
     `;
