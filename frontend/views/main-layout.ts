@@ -49,6 +49,9 @@ export class MainLayout extends Layout {
           </nav>
         </header>
         <slot></slot>
+        <div>
+          <img src="/resources/images/spring-pivotal-logo.png" alt="Sponsored by Pivotal" />
+        </div>
       </vaadin-app-layout>
     `;
   }
