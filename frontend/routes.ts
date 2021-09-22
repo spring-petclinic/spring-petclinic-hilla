@@ -1,8 +1,11 @@
 import { Route } from '@vaadin/router';
-import './views/home-view';
-import './views/vets-view';
 import './views/error-view';
+import './views/home-view';
 import './views/main-layout';
+import './views/owners/find-owners-view';
+import './views/owners/owners-list-view';
+import './views/owners/owner-details-view';
+import './views/vets-view';
 
 export type ViewRoute = Route & {
   title?: string;
@@ -23,6 +26,20 @@ export const views: ViewRoute[] = [
     component: 'home-view',
     icon: 'la la-home',
     title: 'Home',
+  },
+  {
+    path: 'owners-fusion/find',
+    component: 'find-owners-view',
+    icon: 'la la-search',
+    title: 'Find owners',
+  },
+  {
+    path: 'owners-fusion/([0-9]+)',
+    component: 'owner-details-view',
+  },
+  {
+    path: 'owners-fusion',
+    component: 'owners-list-view',
   },
   {
     path: 'vets-fusion',
