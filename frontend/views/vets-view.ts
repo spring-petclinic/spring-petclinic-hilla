@@ -2,19 +2,17 @@ import { html } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { View } from '../views/view';
 import Vet
-  from "Frontend/generated/org/springframework/samples/petclinic/vet/Vet";
-import {VetEndpoint} from "Frontend/generated/endpoints";
+  from 'Frontend/generated/org/springframework/samples/petclinic/vet/Vet';
+import { VetEndpoint } from 'Frontend/generated/endpoints';
 
 @customElement('vets-view')
 export class VetsView extends View {
   @state()
-  vets: Array<Vet> = [];
+  vets: Readonly<Array<Vet>> = [];
 
-  async firstUpdated(changedProperties: any) {
-    super.firstUpdated(changedProperties);
-
-    // Retrieve data from the server-side endpoint.
-    this.vets = (await VetEndpoint.list() as Array<Vet>);
+  constructor() {
+    super();
+    VetEndpoint.list().then((vets) => this.vets = vets);
   }
 
   render() {
