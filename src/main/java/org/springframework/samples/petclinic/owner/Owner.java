@@ -29,10 +29,14 @@ import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.core.style.ToStringCreator;
 import org.springframework.samples.petclinic.model.Person;
+
+import com.vaadin.fusion.Nonnull;
 
 /**
  * Simple JavaBean domain object representing an owner.
@@ -44,6 +48,7 @@ import org.springframework.samples.petclinic.model.Person;
  */
 @Entity
 @Table(name = "owners")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Owner extends Person {
 
 	@Column(name = "address")
@@ -60,7 +65,8 @@ public class Owner extends Person {
 	private String telephone;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
-	private Set<Pet> pets;
+	@Nonnull
+	private Set<@Nonnull Pet> pets;
 
 	public String getAddress() {
 		return this.address;
