@@ -16,47 +16,55 @@ export type ViewRoute = Route & {
 export const views: ViewRoute[] = [
   // place routes below (more info https://vaadin.com/docs/latest/fusion/routing/overview)
   {
-    path: '',
+    path: '/',
     component: 'home-view',
     icon: '',
     title: '',
   },
   {
-    path: 'home-fusion',
+    path: '/home-fusion',
     component: 'home-view',
     icon: 'la la-home',
     title: 'Home',
   },
   {
-    path: 'owners-fusion/find',
+    // Included on root level to include in navigation menu. Otherwise this
+    // could be as a child of the '/owners-fusion' item below.
+    path: '/owners-fusion/find',
     component: 'find-owners-view',
     icon: 'la la-search',
     title: 'Find owners',
   },
   {
-    path: 'owners-fusion/([0-9]+)',
-    component: 'owner-details-view',
+    path: '/owners-fusion',
+    children: [
+      {
+        path: '/',
+        component: 'owners-list-view',
+      },
+      {
+        path: '/([0-9]+)',
+        component: 'owner-details-view',
+      },
+    ],
   },
   {
-    path: 'owners-fusion',
-    component: 'owners-list-view',
-  },
-  {
-    path: 'vets-fusion',
+    path: '/vets-fusion',
     component: 'vets-view',
     icon: 'la la-th-list',
     title: 'Veterinarians',
   },
   {
-    path: 'error-fusion',
+    path: '/error-fusion',
     component: 'error-view',
     icon: 'la la-exclamation-triangle',
     title: 'Error',
   },
 ];
+
 export const routes: ViewRoute[] = [
   {
-    path: '',
+    path: '/',
     component: 'main-layout',
     children: [...views],
   },

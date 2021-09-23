@@ -43,9 +43,9 @@ export class FindOwnersView extends View {
     `;
   }
 
-  async findOwner() {
+  findOwner() {
     const lastName = this.textFieldRef.value?.value || '';
-    const targetUrl = router.urlForPath('owners-fusion') + '?lastName=' + encodeURIComponent(lastName);
+    const targetUrl = router.urlForPath('/owners-fusion') + '?lastName=' + encodeURIComponent(lastName);
     Router.go(targetUrl);
   }
 
