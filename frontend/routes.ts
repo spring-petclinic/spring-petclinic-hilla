@@ -2,6 +2,7 @@ import { Route } from '@vaadin/router';
 import './views/error-view';
 import './views/home-view';
 import './views/main-layout';
+import './views/owners/create-or-update-owner-view';
 import './views/owners/find-owners-view';
 import './views/owners/owners-list-view';
 import './views/owners/owner-details-view';
@@ -41,6 +42,10 @@ export const views: ViewRoute[] = [
       {
         path: '/',
         component: 'owners-list-view',
+      },
+      {
+        path: '/new',
+        component: 'create-or-update-owner-view',
       },
       {
         path: '/([0-9]+)',

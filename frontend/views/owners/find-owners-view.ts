@@ -50,6 +50,6 @@ export class FindOwnersView extends View {
   }
 
   addOwner() {
-    alert('add owner');
+    Router.go(router.urlForPath('/owners-fusion/new'));
   }
 }
