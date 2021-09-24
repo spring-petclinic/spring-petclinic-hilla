@@ -1,6 +1,10 @@
-import { html, nothing } from 'lit';
+import { html, nothing, render } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { View } from '../../views/view';
+import '@vaadin/vaadin-grid/vaadin-grid';
+import type { GridBodyRenderer } from '@vaadin/vaadin-grid';
+import '@vaadin/vaadin-grid/vaadin-grid-column';
+import '@vaadin/vaadin-grid/vaadin-grid-sort-column';
 import { router } from 'Frontend/index';
 import Owner
   from 'Frontend/generated/org/springframework/samples/petclinic/owner/Owner';
@@ -8,12 +12,25 @@ import { OwnerEndpoint } from 'Frontend/generated/endpoints';
 import type { BeforeEnterObserver, PreventAndRedirectCommands, Router, RouterLocation } from '@vaadin/router';
 import './find-owners-view';
 
+interface OwnerGridItem extends Owner {
+  fullNameForSorting: string;
+  petsString: string;
+}
+
 @customElement('owners-list-view')
 export class OwnersListView extends View implements BeforeEnterObserver {
   @state()
   private owners?: Readonly<Array<Owner>>;
 
+  @state()
+  private ownersGridItems: Array<OwnerGridItem> = [];
+
   private lastNameQuery?: string;
+
+  private nameRenderer: GridBodyRenderer<Owner> = (root, _, model) => {
+    const owner = model.item;
+    render(html`<a href="${this.getOwnerHref(owner)}">${owner.firstName} ${owner.lastName}</a>`, root);
+  }
 
   constructor() {
     super();
@@ -47,6 +64,11 @@ export class OwnersListView extends View implements BeforeEnterObserver {
     const searchParams = new URLSearchParams(location.search);
     this.lastNameQuery = searchParams.get('lastName') || '';
     this.owners = await OwnerEndpoint.findByLastName(this.lastNameQuery);
+    this.ownersGridItems = this.owners.map((owner) => ({
+      ...owner,
+      fullNameForSorting: `${owner.lastName} ${owner.firstName}`,
+      petsString: owner.pets.map((pet) => pet.name).join(', '),
+    }));
   }
 
   render() {
@@ -57,7 +79,7 @@ export class OwnersListView extends View implements BeforeEnterObserver {
     if (owners.length === 0) {
       return this.renderNotFound();
     }
-    return this.renderList(owners);
+    return this.renderList();
   }
 
   renderNotFound() {
@@ -66,34 +88,17 @@ export class OwnersListView extends View implements BeforeEnterObserver {
     `;
   }
 
-  renderList(owners: Readonly<Array<Owner>>) {
+  renderList() {
     return html`
       <h2>Owners</h2>
-
-      <table id="owners" class="table table-striped">
-        <thead>
-        <tr>
-          <th style="width: 150px;">Name</th>
-          <th style="width: 200px;">Address</th>
-          <th>City</th>
-          <th style="width: 120px;">Telephone</th>
-          <th>Pets</th>
-        </tr>
-        </thead>
-        <tbody>
-        ${owners.map(
-          (owner) => html`
-              <tr>
-                <td><a href="${this.getOwnerHref(owner)}">${owner.firstName} ${owner.lastName}</a></td>
-                <td>${owner.address}</td>
-                <td>${owner.city}</td>
-                <td>${owner.telephone}</td>
-                <td><span>${owner.pets.map((pet) => pet.name).join(', ')}</span></td>
-              </tr>
-            `
-        )}
-        </tbody>
-      </table>
+      
+      <vaadin-grid .items="${this.ownersGridItems}" theme="row-stripes" all-rows-visible>
+        <vaadin-grid-sort-column header="Name" path="fullNameForSorting" .renderer="${this.nameRenderer}"></vaadin-grid-sort-column>
+        <vaadin-grid-column path="address"></vaadin-grid-column>
+        <vaadin-grid-sort-column path="city"></vaadin-grid-sort-column>
+        <vaadin-grid-column path="telephone"></vaadin-grid-column>
+        <vaadin-grid-column header="Pets" path="petsString"></vaadin-grid-column>
+      </vaadin-grid>
     `;
   }
 
