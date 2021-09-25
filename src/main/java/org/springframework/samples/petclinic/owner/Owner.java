@@ -48,7 +48,7 @@ import com.vaadin.fusion.Nonnull;
  */
 @Entity
 @Table(name = "owners")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Owner.class)
 public class Owner extends Person {
 
 	@Column(name = "address")

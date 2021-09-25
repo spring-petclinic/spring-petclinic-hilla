@@ -48,7 +48,7 @@ import org.springframework.samples.petclinic.visit.Visit;
  */
 @Entity
 @Table(name = "pets")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Pet.class)
 public class Pet extends NamedEntity {
 
 	@Column(name = "birth_date")
