@@ -40,6 +40,7 @@ export const views: ViewRoute[] = [
   },
   {
     path: '/owners-fusion',
+    name: 'owners-base',
     children: [
       {
         path: '/',
