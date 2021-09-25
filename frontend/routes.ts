@@ -24,6 +24,7 @@ export const views: ViewRoute[] = [
   },
   {
     path: '/home-fusion',
+    name: 'home',
     component: 'home-view',
     icon: 'la la-home',
     title: 'Home',
@@ -32,6 +33,7 @@ export const views: ViewRoute[] = [
     // Included on root level to include in navigation menu. Otherwise this
     // could be as a child of the '/owners-fusion' item below.
     path: '/owners-fusion/find',
+    name: 'find-owners',
     component: 'find-owners-view',
     icon: 'la la-search',
     title: 'Find owners',
@@ -41,20 +43,49 @@ export const views: ViewRoute[] = [
     children: [
       {
         path: '/',
+        name: 'owners-list',
         component: 'owners-list-view',
       },
       {
         path: '/new',
+        name: 'new-owner',
         component: 'create-or-update-owner-view',
       },
       {
         path: '/([0-9]+)',
-        component: 'owner-details-view',
+        children: [
+          {
+            path: '/',
+            name: 'owner-details',
+            component: 'owner-details-view',
+          },
+          {
+            path: '/edit',
+            name: 'edit-owner',
+            component: 'create-or-update-owner-view',
+          },
+          {
+            path: '/pets/new',
+            name: 'add-pet',
+            component: '',
+          },
+          {
+            path: '/pets/([0-9]+)/edit',
+            name: 'edit-pet',
+            component: '',
+          },
+          {
+            path: '/pets/([0-9]+)/visits/new',
+            name: 'add-visit',
+            component: '',
+          },
+        ],
       },
     ],
   },
   {
     path: '/vets-fusion',
+    name: 'vets-list',
     component: 'vets-view',
     icon: 'la la-th-list',
     title: 'Veterinarians',

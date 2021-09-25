@@ -45,11 +45,11 @@ export class FindOwnersView extends View {
 
   findOwner() {
     const lastName = this.textFieldRef.value?.value || '';
-    const targetUrl = router.urlForPath('/owners-fusion') + '?lastName=' + encodeURIComponent(lastName);
+    const targetUrl = router.urlForName('owners-list') + '?lastName=' + encodeURIComponent(lastName);
     Router.go(targetUrl);
   }
 
   addOwner() {
-    Router.go(router.urlForPath('/owners-fusion/new'));
+    Router.go(router.urlForName('new-owner'));
   }
 }
