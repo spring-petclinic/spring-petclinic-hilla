@@ -27,8 +27,9 @@ public class OwnerEndpoint {
 		return this.service.findById(id);
 	}
 
-	public void save(Owner owner) {
+	public Integer save(Owner owner) {
 		this.service.save(owner);
+		return owner.getId();
 	}
 
 }

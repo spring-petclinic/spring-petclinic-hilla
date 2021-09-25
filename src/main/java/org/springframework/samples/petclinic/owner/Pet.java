@@ -39,6 +39,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.samples.petclinic.model.NamedEntity;
 import org.springframework.samples.petclinic.visit.Visit;
 
+import com.vaadin.fusion.Nonnull;
+
 /**
  * Simple business object representing a pet.
  *
@@ -64,7 +66,8 @@ public class Pet extends NamedEntity {
 	private Owner owner;
 
 	@Transient
-	private Set<Visit> visits = new LinkedHashSet<>();
+	@Nonnull
+	private Set<@Nonnull Visit> visits = new LinkedHashSet<>();
 
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
