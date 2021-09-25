@@ -10,6 +10,7 @@ import { router } from '../index';
 import { views } from '../routes';
 import { appStore } from '../stores/app-store';
 import { Layout } from './view';
+import type { RouterLocation } from '@vaadin/router';
 
 interface RouteInfo {
   path: string;
@@ -31,7 +32,7 @@ export class MainLayout extends Layout {
             ${this.getMenuRoutes().map(
       (viewRoute) => html`
                 <a
-                  ?highlight=${viewRoute.path == appStore.location}
+                  ?highlight=${this.highlightNav(viewRoute.path)}
                   class="flex 
                   h-m items-center px-s relative text-secondary"
                   href=${router.urlForPath(viewRoute.path)}
@@ -56,6 +57,22 @@ export class MainLayout extends Layout {
         </div>
       </vaadin-app-layout>
     `;
+  }
+
+  isSubRoute(location: RouterLocation, parentRouteName: string) {
+    return location.routes.find((r) => r.name === parentRouteName) !== undefined;
+  }
+
+  highlightNav(routePath: string) {
+    if (appStore.location.startsWith(routePath)) {
+      return true;
+    }
+    // Highlight "Find owners" if this is any view under the owners-base route
+    if (routePath === router.urlForName('find-owners')
+        && this.isSubRoute(router.location, 'owners-base')) {
+      return true;
+    }
+    return false;
   }
 
   connectedCallback() {
