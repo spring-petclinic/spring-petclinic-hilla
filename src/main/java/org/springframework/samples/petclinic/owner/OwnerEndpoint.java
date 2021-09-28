@@ -2,8 +2,6 @@ package org.springframework.samples.petclinic.owner;
 
 import java.util.Collection;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.fusion.Endpoint;
 import com.vaadin.fusion.Nonnull;
@@ -14,7 +12,7 @@ public class OwnerEndpoint {
 
 	private OwnerRepository service;
 
-	public OwnerEndpoint(@Autowired OwnerRepository service) {
+	public OwnerEndpoint(OwnerRepository service) {
 		this.service = service;
 	}
 
