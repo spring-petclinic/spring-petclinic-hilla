@@ -28,8 +28,7 @@ public class OwnerEndpoint {
 	}
 
 	public Integer save(Owner owner) {
-		this.service.save(owner);
-		return owner.getId();
+		return this.service.save(owner).getId();
 	}
 
 }
