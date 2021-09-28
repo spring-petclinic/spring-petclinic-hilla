@@ -25,15 +25,9 @@ export class VetsView extends View {
 
   private specialtiesRenderer: GridBodyRenderer<Vet> = (root, _, model) => {
     const vet = model.item;
-    const templateJoin = (values: HTMLTemplateResult[], joiner: HTMLTemplateResult) => values.map((v, i) => [v, i < values.length - 1 ? joiner : nothing]);
     render(
       (vet.specialties.length > 0)
-        ? templateJoin(
-          vet.specialties.map(
-            (specialty) => html`<span>${specialty.name}</span>`
-          ),
-          html`, ` // Add a comma between the items
-        )
+        ? html`<span>${vet.specialties.map((specialty) => specialty.name).join(', ')}</span>`
         : html`<span>none</span>`,
       root
     );
