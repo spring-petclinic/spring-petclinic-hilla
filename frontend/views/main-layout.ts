@@ -12,12 +12,6 @@ import { appStore } from '../stores/app-store';
 import { Layout } from './view';
 import type { RouterLocation } from '@vaadin/router';
 
-interface RouteInfo {
-  path: string;
-  title: string;
-  icon: string;
-}
-
 @customElement('main-layout')
 export class MainLayout extends Layout {
   render() {
@@ -80,7 +74,7 @@ export class MainLayout extends Layout {
     this.classList.add('block', 'h-full');
   }
 
-  private getMenuRoutes(): RouteInfo[] {
-    return views.filter((route) => route.title) as RouteInfo[];
+  private getMenuRoutes() {
+    return views.filter((route) => route.title);
   }
 }
