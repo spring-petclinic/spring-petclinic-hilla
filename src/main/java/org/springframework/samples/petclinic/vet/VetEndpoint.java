@@ -18,7 +18,7 @@ public class VetEndpoint {
 
 	@Nonnull
 	public Collection<@Nonnull Vet> list() {
-		return this.service.findAll();
+		return service.findAll();
 	}
 
 }
