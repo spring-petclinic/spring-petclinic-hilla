@@ -16,7 +16,7 @@ import OwnerModel
 @customElement('create-or-update-owner-view')
 export class CreateOrUpdateOwnerView extends View {
   @state()
-  private owner?: Readonly<Owner>;
+  private owner?: Owner;
 
   private binder = new Binder(this, OwnerModel);
 
@@ -30,7 +30,11 @@ export class CreateOrUpdateOwnerView extends View {
 
   async fetchOwner(id: number) {
     this.owner = await OwnerEndpoint.findById(id);
-    this.binder.read(this.owner as Owner);
+    if (this.owner) {
+      this.binder.read(this.owner);
+    } else {
+      console.warn(`No owner found with id ${id}`);
+    }
   }
 
   render() {

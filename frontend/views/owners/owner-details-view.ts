@@ -9,7 +9,7 @@ import Owner
 @customElement('owner-details-view')
 export class OwnerDetailsView extends View {
   @state()
-  private owner?: Readonly<Owner>;
+  private owner?: Owner;
 
   connectedCallback() {
     super.connectedCallback();
