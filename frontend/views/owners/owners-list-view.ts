@@ -72,11 +72,10 @@ export class OwnersListView extends View implements BeforeEnterObserver {
   }
 
   render() {
-    const { owners } = this;
-    if (!owners) {
+    if (!this.owners) {
       return nothing;
     }
-    if (owners.length === 0) {
+    if (this.owners.length === 0) {
       return this.renderNotFound();
     }
     return this.renderList();
