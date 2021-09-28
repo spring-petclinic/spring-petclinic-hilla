@@ -23,7 +23,7 @@ export class OwnersListView extends View implements BeforeEnterObserver {
   private owners?: ReadonlyArray<Owner>;
 
   @state()
-  private ownersGridItems: Array<OwnerGridItem> = [];
+  private ownersGridItems: OwnerGridItem[] = [];
 
   private lastNameQuery?: string;
 

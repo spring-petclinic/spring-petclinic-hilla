@@ -16,7 +16,7 @@ interface VetGridItem extends Vet {
 @customElement('vets-view')
 export class VetsView extends View {
   @state()
-  vetsGridItems: Array<VetGridItem> = [];
+  vetsGridItems: VetGridItem[] = [];
 
   private nameRenderer: GridBodyRenderer<Vet> = (root, _, model) => {
     const vet = model.item;
@@ -25,7 +25,7 @@ export class VetsView extends View {
 
   private specialtiesRenderer: GridBodyRenderer<Vet> = (root, _, model) => {
     const vet = model.item;
-    const templateJoin = (values: Array<HTMLTemplateResult>, joiner: HTMLTemplateResult) => values.map((v, i) => [v, i < values.length - 1 ? joiner : nothing]);
+    const templateJoin = (values: HTMLTemplateResult[], joiner: HTMLTemplateResult) => values.map((v, i) => [v, i < values.length - 1 ? joiner : nothing]);
     render(
       (vet.specialties.length > 0)
         ? templateJoin(
