@@ -18,16 +18,16 @@ public class OwnerEndpoint {
 
 	@Nonnull
 	public Collection<@Nonnull Owner> findByLastName(String lastName) {
-		return this.service.findByLastName(lastName);
+		return service.findByLastName(lastName);
 	}
 
 	public Owner findById(Integer id) {
-		return this.service.findById(id);
+		return service.findById(id);
 	}
 
 	@Nonnull
 	public Integer save(Owner owner) {
-		return this.service.save(owner).getId();
+		return service.save(owner).getId();
 	}
 
 }
