@@ -33,17 +33,15 @@ export class VetsView extends View {
     );
   }
 
-  constructor() {
-    super();
-    VetEndpoint.list().then(
-      (vets) =>
-        this.vetsGridItems = vets.map(
-          (vet) => ({
-            ...vet,
-            fullNameForSorting: `${vet.lastName} ${vet.firstName}`,
-          })
-        )
-    );
+  async connectedCallback() {
+    super.connectedCallback();
+    const vets = await VetEndpoint.list();
+    this.vetsGridItems = vets.map(
+      (vet) => ({
+        ...vet,
+        fullNameForSorting: `${vet.lastName} ${vet.firstName}`,
+      })
+    )
   }
 
   render() {

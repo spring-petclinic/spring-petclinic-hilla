@@ -8,9 +8,8 @@ export class ErrorView extends View {
   @state()
   result?: string;
 
-  async firstUpdated(changedProperties: any) {
-    super.firstUpdated(changedProperties);
-
+  async connectedCallback() {
+    super.connectedCallback();
     this.result = await CrashEndpoint.triggerException();
   }
 
