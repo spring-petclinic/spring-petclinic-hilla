@@ -22,7 +22,14 @@ export class FindOwnersView extends View {
     return html`
       <h2>Find Owners</h2>
       
-      <vaadin-text-field label="Last name" .value="${this.lastName}" @change="${this.lastNameChanged}" helper-text="${this.hintText}" clear-button-visible>
+      <vaadin-text-field
+        label="Last name"
+        .value="${this.lastName}"
+        @change="${this.lastNameChanged}"
+        @keyup="${this.textFieldKeyUp}"
+        helper-text="${this.hintText}"
+        clear-button-visible
+      >
         <vaadin-icon slot="prefix" icon="vaadin:search"></vaadin-icon>
       </vaadin-text-field>
       <vaadin-button @click="${this.findOwner}">Find Owner</vaadin-button><br>
@@ -34,6 +41,12 @@ export class FindOwnersView extends View {
   lastNameChanged(event: Event) {
     const textField = event.target as TextFieldElement;
     this.lastName = textField.value;
+  }
+
+  textFieldKeyUp(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      this.findOwner();
+    }
   }
 
   findOwner() {
