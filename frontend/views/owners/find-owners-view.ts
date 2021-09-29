@@ -1,6 +1,5 @@
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { ref, createRef } from 'lit/directives/ref';
 import '@vaadin/vaadin-button/vaadin-button'
 import '@vaadin/vaadin-icons/vaadin-iconset'
 import '@vaadin/vaadin-icon/vaadin-icon'
@@ -13,28 +12,17 @@ import { Router } from '@vaadin/router';
 @customElement('find-owners-view')
 export class FindOwnersView extends View {
 
-  @property({ type: String, attribute: 'initial-last-name' })
-  initialLastName?: string;
+  @property({ type: String, attribute: 'last-name' })
+  lastName: string = '';
 
   @property({ type: String, attribute: 'hint-text' })
   hintText?: string;
-
-  private textFieldRef = createRef<TextFieldElement>();
-
-  connectedCallback() {
-    super.connectedCallback();
-    const searchParams = new URLSearchParams(router.location.search);
-    const lastNameQuery = searchParams.get('lastName');
-    if (typeof lastNameQuery === 'string') {
-      this.initialLastName = lastNameQuery;
-    }
-  }
 
   render() {
     return html`
       <h2>Find Owners</h2>
       
-      <vaadin-text-field label="Last name" .value="${this.initialLastName}" helper-text="${this.hintText}" clear-button-visible ${ref(this.textFieldRef)}>
+      <vaadin-text-field label="Last name" .value="${this.lastName}" @change="${this.lastNameChanged}" helper-text="${this.hintText}" clear-button-visible>
         <vaadin-icon slot="prefix" icon="vaadin:search"></vaadin-icon>
       </vaadin-text-field>
       <vaadin-button @click="${this.findOwner}">Find Owner</vaadin-button><br>
@@ -43,9 +31,16 @@ export class FindOwnersView extends View {
     `;
   }
 
+  lastNameChanged(event: Event) {
+    const textField = event.target as TextFieldElement;
+    this.lastName = textField.value;
+  }
+
   findOwner() {
-    const lastName = this.textFieldRef.value?.value || '';
-    const targetUrl = router.urlForName('owners-list') + '?lastName=' + encodeURIComponent(lastName);
+    let targetUrl = router.urlForName('owners-list');
+    if (this.lastName !== '') {
+      targetUrl += '?lastName=' + encodeURIComponent(this.lastName);
+    }
     Router.go(targetUrl);
   }
 

@@ -83,7 +83,7 @@ export class OwnersListView extends View implements BeforeEnterObserver {
 
   renderNotFound() {
     return html`
-      <find-owners-view initial-last-name="${this.lastNameQuery}" hint-text="has not been found"></find-owners-view>
+      <find-owners-view last-name="${this.lastNameQuery}" hint-text="has not been found"></find-owners-view>
     `;
   }
 
