@@ -13,7 +13,7 @@ export class OwnerDetailsView extends View {
 
   connectedCallback() {
     super.connectedCallback();
-    const id = parseInt(router.location.params[0] as string);
+    const id = parseInt(router.location.params.ownerId as string);
     this.fetchOwner(id);
   }
 
@@ -23,27 +23,27 @@ export class OwnerDetailsView extends View {
 
   getEditOwnerHref(ownerId: number | undefined) {
     if (ownerId === undefined) return '';
-    return router.urlForName('edit-owner', { 0: ownerId.toString() });
+    return router.urlForName('edit-owner', { ownerId: ownerId.toString() });
   }
 
   getAddNewPetHref(ownerId: number | undefined) {
     if (ownerId === undefined) return '';
-    return router.urlForName('add-pet', { 0: ownerId.toString() });
+    return router.urlForName('add-pet', { ownerId: ownerId.toString() });
   }
 
   getEditPetHref(ownerId: number | undefined, petId: number | undefined) {
     if (ownerId === undefined || petId === undefined) return '';
     return router.urlForName('edit-pet', {
-      0: ownerId.toString(),
-      1: petId.toString(),
+      ownerId: ownerId.toString(),
+      petId: petId.toString(),
     });
   }
 
   getAddVisitHref(ownerId: number | undefined, petId: number | undefined) {
     if (ownerId === undefined || petId === undefined) return '';
     return router.urlForName('add-visit', {
-      0: ownerId.toString(),
-      1: petId.toString(),
+      ownerId: ownerId.toString(),
+      petId: petId.toString(),
     });
   }
 

@@ -102,6 +102,6 @@ export class OwnersListView extends View implements BeforeEnterObserver {
   }
 
   getOwnerHref(owner: Owner) {
-    return router.urlForName('owner-details', { 0: `${owner.id}` });
+    return router.urlForName('owner-details', { ownerId: `${owner.id}` });
   }
 }
