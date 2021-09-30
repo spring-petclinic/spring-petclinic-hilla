@@ -26,7 +26,7 @@ export class CreateOrUpdateOwnerView extends View {
 
   connectedCallback() {
     super.connectedCallback();
-    const id = parseInt(router.location.params[0] as string);
+    const id = parseInt(router.location.params.ownerId as string);
     this.fetchOwner(id);
   }
 
@@ -79,7 +79,7 @@ export class CreateOrUpdateOwnerView extends View {
       console.error(e.type, e.message);
       return;
     }
-    const targetUrl = router.urlForName('owner-details', { 0: ownerId.toString() });
+    const targetUrl = router.urlForName('owner-details', { ownerId: ownerId.toString() });
     Router.go(targetUrl);
   }
 }

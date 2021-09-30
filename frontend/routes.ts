@@ -53,7 +53,7 @@ export const views: ViewRoute[] = [
         component: 'create-or-update-owner-view',
       },
       {
-        path: '/([0-9]+)',
+        path: '/:ownerId([0-9]+)',
         children: [
           {
             path: '/',
@@ -71,12 +71,12 @@ export const views: ViewRoute[] = [
             component: '',
           },
           {
-            path: '/pets/([0-9]+)/edit',
+            path: '/pets/:petId([0-9]+)/edit',
             name: 'edit-pet',
             component: '',
           },
           {
-            path: '/pets/([0-9]+)/visits/new',
+            path: '/pets/:petId([0-9]+)/visits/new',
             name: 'add-visit',
             component: '',
           },
