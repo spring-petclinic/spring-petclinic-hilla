@@ -26,8 +26,10 @@ export class CreateOrUpdateOwnerView extends View {
 
   connectedCallback() {
     super.connectedCallback();
-    const id = parseInt(router.location.params.ownerId as string);
-    this.fetchOwner(id);
+    if (router.location.route?.name === 'edit-owner') {
+      const id = parseInt(router.location.params.ownerId as string);
+      this.fetchOwner(id);
+    }
   }
 
   async fetchOwner(id: number) {
