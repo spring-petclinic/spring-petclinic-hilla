@@ -6,6 +6,7 @@ import './views/owners/create-or-update-owner-view';
 import './views/owners/find-owners-view';
 import './views/owners/owners-list-view';
 import './views/owners/owner-details-view';
+import './views/pets/create-or-update-pet-view';
 import './views/vets-view';
 
 export type ViewRoute = Route & {
@@ -68,12 +69,12 @@ export const views: ViewRoute[] = [
           {
             path: '/pets/new',
             name: 'add-pet',
-            component: '',
+            component: 'create-or-update-pet-view',
           },
           {
             path: '/pets/:petId([0-9]+)/edit',
             name: 'edit-pet',
-            component: '',
+            component: 'create-or-update-pet-view',
           },
           {
             path: '/pets/:petId([0-9]+)/visits/new',
