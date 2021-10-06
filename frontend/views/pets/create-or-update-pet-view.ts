@@ -4,7 +4,12 @@ import { createRef, ref, Ref } from 'lit/directives/ref';
 import { Binder, field, ValidationError } from '@vaadin/form';
 import { Router } from '@vaadin/router';
 import { selectRenderer } from 'lit-vaadin-helpers';
+import { formatISO } from 'date-fns';
+import dateFnsFormat from 'date-fns/format';
+import dateFnsParse from 'date-fns/parse';
 import '@vaadin/vaadin-button/vaadin-button';
+import '@vaadin/vaadin-date-picker/vaadin-date-picker';
+import type { DatePickerDate, DatePickerElement } from '@vaadin/vaadin-date-picker/vaadin-date-picker';
 import '@vaadin/vaadin-form-layout/vaadin-form-layout';
 import '@vaadin/vaadin-form-layout/vaadin-form-item';
 import '@vaadin/vaadin-item/vaadin-item';
@@ -39,9 +44,14 @@ export class CreateOrUpdatePetView extends View {
   @state()
   private error?: string;
 
+  @state()
+  private today = formatISO(Date.now(), { representation: 'date' });
+
   private binder = new Binder(this, PetDTOModel);
 
   private selectRef: Ref<Select> = createRef();
+
+  private datePickerRef: Ref<DatePickerElement> = createRef();
 
   connectedCallback() {
     super.connectedCallback();
@@ -98,6 +108,33 @@ export class CreateOrUpdatePetView extends View {
     }
   }
 
+  firstUpdated() {
+    this.configureDatePicker();
+  }
+
+  configureDatePicker() {
+    const formatDateIso8601 = (dateParts: DatePickerDate): string => {
+      const { year, month, day } = dateParts;
+      const date = new Date(year, month, day);
+
+      return dateFnsFormat(date, 'yyyy-MM-dd');
+    };
+
+    const parseDateIso8601 = (inputValue: string): DatePickerDate => {
+      const date = dateFnsParse(inputValue, 'yyyy-MM-dd', new Date());
+
+      return { year: date.getFullYear(), month: date.getMonth(), day: date.getDate() };
+    };
+
+    if (this.datePickerRef.value) {
+      this.datePickerRef.value.i18n = {
+        ...this.datePickerRef.value.i18n,
+        formatDate: formatDateIso8601,
+        parseDate: parseDateIso8601,
+      };
+    }
+  }
+
   async updated(changedProperties: PropertyValues) {
     if (changedProperties.has('petTypes')) {
       // Need to manually trigger the select renderer whenever the item set changes dynamically
@@ -122,7 +159,11 @@ export class CreateOrUpdatePetView extends View {
         </vaadin-form-item>
         <vaadin-form-item>
           <label slot="label">Birth Date</label>
-          <vaadin-text-field ${field(model.birthDate)}></vaadin-text-field>
+          <vaadin-date-picker
+            ${ref(this.datePickerRef)}
+            ${field(model.birthDate)}
+            .max="${this.today}"
+          ></vaadin-date-picker>
         </vaadin-form-item>
         <vaadin-form-item>
           <label slot="label">Type</label>
