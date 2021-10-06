@@ -15,7 +15,7 @@ import Pet
   from 'Frontend/generated/org/springframework/samples/petclinic/owner/Pet';
 import PetModel
   from 'Frontend/generated/org/springframework/samples/petclinic/owner/PetModel';
-import { EndpointError } from '@vaadin/flow-frontend';
+import { EndpointError } from '@vaadin/fusion-frontend';
 
 @customElement('create-or-update-pet-view')
 export class CreateOrUpdatePetView extends View {
@@ -109,7 +109,7 @@ export class CreateOrUpdatePetView extends View {
       } else {
         this.error = 'Saving pet failed due to server error';
       }
-      console.error(e.type, e.message);
+      console.error(e);
       return;
     }
     const targetUrl = router.urlForName('owner-details', { ownerId: this.owner!.id!.toString() });
