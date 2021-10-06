@@ -10,7 +10,7 @@ import '@vaadin/vaadin-form-layout/vaadin-form-item';
 import '@vaadin/vaadin-item/vaadin-item';
 import '@vaadin/vaadin-list-box/vaadin-list-box';
 import '@vaadin/vaadin-select/vaadin-select';
-import { Select } from '@vaadin/vaadin-select/vaadin-select';
+import type { Select } from '@vaadin/vaadin-select/vaadin-select';
 import '@vaadin/vaadin-text-field/vaadin-text-field';
 import { View } from '../../views/view';
 import { router } from 'Frontend/index';
@@ -72,6 +72,10 @@ export class CreateOrUpdatePetView extends View {
     this.petTypes = undefined;
     try {
       this.petTypes = await PetEndpoint.findPetTypes();
+      // Preselect first pet type when not editing an existing pet
+      if (!this.pet) {
+        this.binder.value = { ...this.binder.value, typeId: this.petTypes[0].id! };
+      }
     } finally {
       if (!this.petTypes) {
         this.error = `Error fetching pet types`;
