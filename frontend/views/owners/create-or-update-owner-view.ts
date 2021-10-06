@@ -12,7 +12,7 @@ import Owner
   from 'Frontend/generated/org/springframework/samples/petclinic/owner/Owner';
 import OwnerModel
   from 'Frontend/generated/org/springframework/samples/petclinic/owner/OwnerModel';
-import { EndpointError } from '@vaadin/flow-frontend';
+import { EndpointError } from '@vaadin/fusion-frontend';
 
 @customElement('create-or-update-owner-view')
 export class CreateOrUpdateOwnerView extends View {
@@ -78,7 +78,7 @@ export class CreateOrUpdateOwnerView extends View {
       } else {
         this.error = 'Saving owner failed due to server error';
       }
-      console.error(e.type, e.message);
+      console.error(e);
       return;
     }
     const targetUrl = router.urlForName('owner-details', { ownerId: ownerId.toString() });
