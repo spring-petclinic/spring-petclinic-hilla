@@ -5,11 +5,9 @@ import { Binder, field, ValidationError } from '@vaadin/form';
 import { Router } from '@vaadin/router';
 import { selectRenderer } from 'lit-vaadin-helpers';
 import { formatISO } from 'date-fns';
-import dateFnsFormat from 'date-fns/format';
-import dateFnsParse from 'date-fns/parse';
 import '@vaadin/vaadin-button/vaadin-button';
 import '@vaadin/vaadin-date-picker/vaadin-date-picker';
-import type { DatePickerDate, DatePickerElement } from '@vaadin/vaadin-date-picker/vaadin-date-picker';
+import type { DatePickerElement } from '@vaadin/vaadin-date-picker/vaadin-date-picker';
 import '@vaadin/vaadin-form-layout/vaadin-form-layout';
 import '@vaadin/vaadin-form-layout/vaadin-form-item';
 import '@vaadin/vaadin-item/vaadin-item';
@@ -29,6 +27,7 @@ import PetDTOModel
 import { EndpointError } from '@vaadin/fusion-frontend';
 import PetType
   from 'Frontend/generated/org/springframework/samples/petclinic/owner/PetType';
+import { configureDatePicker } from 'Frontend/utils';
 
 @customElement('create-or-update-pet-view')
 export class CreateOrUpdatePetView extends View {
@@ -109,30 +108,7 @@ export class CreateOrUpdatePetView extends View {
   }
 
   firstUpdated() {
-    this.configureDatePicker();
-  }
-
-  configureDatePicker() {
-    const formatDateIso8601 = (dateParts: DatePickerDate): string => {
-      const { year, month, day } = dateParts;
-      const date = new Date(year, month, day);
-
-      return dateFnsFormat(date, 'yyyy-MM-dd');
-    };
-
-    const parseDateIso8601 = (inputValue: string): DatePickerDate => {
-      const date = dateFnsParse(inputValue, 'yyyy-MM-dd', new Date());
-
-      return { year: date.getFullYear(), month: date.getMonth(), day: date.getDate() };
-    };
-
-    if (this.datePickerRef.value) {
-      this.datePickerRef.value.i18n = {
-        ...this.datePickerRef.value.i18n,
-        formatDate: formatDateIso8601,
-        parseDate: parseDateIso8601,
-      };
-    }
+    configureDatePicker(this.datePickerRef.value!);
   }
 
   async updated(changedProperties: PropertyValues) {
