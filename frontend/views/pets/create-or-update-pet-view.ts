@@ -1,7 +1,7 @@
 import { html, nothing, PropertyValues } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { createRef, ref, Ref } from 'lit/directives/ref';
-import { Binder, field } from '@vaadin/form';
+import { Binder, field, ValidationError } from '@vaadin/form';
 import { Router } from '@vaadin/router';
 import { selectRenderer } from 'lit-vaadin-helpers';
 import '@vaadin/vaadin-button/vaadin-button';
@@ -151,10 +151,12 @@ export class CreateOrUpdatePetView extends View {
     try {
       petId = await this.binder.submitTo(PetEndpoint.save);
     } catch (e) {
-      if (!(e instanceof EndpointError)) {
-        this.error = 'Saving pet failed due to network error. Try again later.';
-      } else {
+      if (e instanceof EndpointError) {
         this.error = 'Saving pet failed due to server error';
+      } else if (e instanceof ValidationError) {
+        this.error = 'Saving pet failed due to validation error(s).';
+      } else {
+        this.error = 'Saving pet failed due to network error. Try again later.';
       }
       console.error(e);
       return;
