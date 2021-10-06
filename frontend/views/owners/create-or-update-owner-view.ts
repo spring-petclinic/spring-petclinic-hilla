@@ -1,6 +1,6 @@
 import { html, nothing } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { Binder, field } from '@vaadin/form';
+import { Binder, field, ValidationError } from '@vaadin/form';
 import { Router } from '@vaadin/router';
 import '@vaadin/vaadin-button/vaadin-button';
 import '@vaadin/vaadin-form-layout/vaadin-form-layout';
@@ -73,10 +73,12 @@ export class CreateOrUpdateOwnerView extends View {
     try {
       ownerId = await this.binder.submitTo(OwnerEndpoint.save);
     } catch (e) {
-      if (!(e instanceof EndpointError)) {
-        this.error = 'Saving owner failed due to network error. Try again later.';
-      } else {
+      if (e instanceof EndpointError) {
         this.error = 'Saving owner failed due to server error';
+      } else if (e instanceof ValidationError) {
+        this.error = 'Saving owner failed due to validation error(s).';
+      } else {
+        this.error = 'Saving owner failed due to network error. Try again later.';
       }
       console.error(e);
       return;
