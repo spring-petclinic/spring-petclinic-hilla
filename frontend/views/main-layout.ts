@@ -1,9 +1,5 @@
 import '@vaadin/vaadin-app-layout';
-import '@vaadin/vaadin-avatar/vaadin-avatar';
-import '@vaadin/vaadin-context-menu';
 import '@vaadin/vaadin-lumo-styles/utility';
-import '@vaadin/vaadin-tabs';
-import '@vaadin/vaadin-tabs/vaadin-tab';
 import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { router } from '../index';
