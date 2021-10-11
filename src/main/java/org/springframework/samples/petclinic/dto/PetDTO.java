@@ -24,6 +24,8 @@ public class PetDTO {
 	@NotNull(message = "type must be selected")
 	private Integer typeId;
 
+	private String typeName;
+
 	@Nonnull
 	private Integer ownerId;
 
@@ -63,6 +65,14 @@ public class PetDTO {
 
 	public void setTypeId(Integer typeId) {
 		this.typeId = typeId;
+	}
+
+	public String getTypeName() {
+		return this.typeName;
+	}
+
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
 	}
 
 	public Integer getOwnerId() {
