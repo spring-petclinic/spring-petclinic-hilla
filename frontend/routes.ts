@@ -7,6 +7,7 @@ import './views/owners/find-owners-view';
 import './views/owners/owners-list-view';
 import './views/owners/owner-details-view';
 import './views/pets/create-or-update-pet-view';
+import './views/pets/create-or-update-visit-view';
 import './views/vets-view';
 
 export type ViewRoute = Route & {
@@ -42,6 +43,7 @@ export const views: ViewRoute[] = [
   {
     path: '/owners-fusion',
     name: 'owners-base',
+    component: 'span',
     children: [
       {
         path: '/',
@@ -79,7 +81,7 @@ export const views: ViewRoute[] = [
           {
             path: '/pets/:petId([0-9]+)/visits/new',
             name: 'add-visit',
-            component: '',
+            component: 'create-or-update-visit-view',
           },
         ],
       },
