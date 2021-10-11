@@ -2,9 +2,11 @@ import { html } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { View } from '../../views/view';
 import { router } from 'Frontend/index';
-import { OwnerEndpoint } from 'Frontend/generated/endpoints';
+import { OwnerEndpoint, VisitEndpoint } from 'Frontend/generated/endpoints';
 import Owner
   from 'Frontend/generated/org/springframework/samples/petclinic/owner/Owner';
+import Pet
+  from 'Frontend/generated/org/springframework/samples/petclinic/owner/Pet';
 
 @customElement('owner-details-view')
 export class OwnerDetailsView extends View {
@@ -19,6 +21,15 @@ export class OwnerDetailsView extends View {
 
   async fetchOwner(id: number) {
     this.owner = await OwnerEndpoint.findById(id);
+    // Fetch visits for pets
+    if (this.owner?.pets) {
+      let pets: Pet[] = [];
+      for (const pet of this.owner.pets) {
+        const visits = await VisitEndpoint.findByPetId(pet.id);
+        pets.push({ ...pet, visits });
+      }
+      this.owner = { ...this.owner, pets };
+    }
   }
 
   getEditOwnerHref(ownerId: number | undefined) {
