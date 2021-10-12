@@ -1,10 +1,10 @@
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import '@vaadin/vaadin-button/vaadin-button'
-import '@vaadin/vaadin-icons/vaadin-iconset'
-import '@vaadin/vaadin-icon/vaadin-icon'
-import '@vaadin/vaadin-text-field/vaadin-text-field'
-import type { TextFieldElement } from '@vaadin/vaadin-text-field/vaadin-text-field';
+import '@vaadin/button';
+import '@vaadin/icons';
+import '@vaadin/icon';
+import '@vaadin/text-field';
+import type { TextField } from '@vaadin/text-field';
 import { View } from '../../views/view';
 import { router } from 'Frontend/index';
 import { Router } from '@vaadin/router';
@@ -39,7 +39,7 @@ export class FindOwnersView extends View {
   }
 
   lastNameChanged(event: Event) {
-    const textField = event.target as TextFieldElement;
+    const textField = event.target as TextField;
     this.lastName = textField.value;
   }
 

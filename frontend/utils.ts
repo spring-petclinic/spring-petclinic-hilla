@@ -1,4 +1,4 @@
-import type { DatePickerDate, DatePickerElement } from '@vaadin/vaadin-date-picker/vaadin-date-picker';
+import type { DatePickerDate, DatePicker } from '@vaadin/date-picker';
 import dateFnsFormat from 'date-fns/format';
 import dateFnsParse from 'date-fns/parse';
 
@@ -15,7 +15,7 @@ const parseDateIso8601 = (inputValue: string): DatePickerDate => {
   return { year: date.getFullYear(), month: date.getMonth(), day: date.getDate() };
 };
 
-export function configureDatePicker(datePicker: DatePickerElement) {
+export function configureDatePicker(datePicker: DatePicker) {
   if (datePicker) {
     datePicker.i18n = {
       ...datePicker.i18n,
