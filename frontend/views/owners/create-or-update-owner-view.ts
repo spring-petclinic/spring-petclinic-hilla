@@ -53,17 +53,19 @@ export class CreateOrUpdateOwnerView extends View {
     return html`
       <h2>Owner</h2>
       
-      <vaadin-form-layout>
-        <vaadin-text-field label="First Name" ${field(model.firstName)}></vaadin-text-field>
-        <vaadin-text-field label="Last Name" ${field(model.lastName)}></vaadin-text-field>
-        <vaadin-text-field label="Address" colspan="2" ${field(model.address)}></vaadin-text-field>
-        <vaadin-text-field label="City" ${field(model.city)}></vaadin-text-field>
-        <vaadin-text-field label="Telephone" ${field(model.telephone)}></vaadin-text-field>
-      </vaadin-form-layout>
-      <vaadin-button @click="${this.submit}">${submitButtonText}</vaadin-button><br>
-      ${this.error !== undefined
-        ? html`<p class="error">${this.error}</p>`
-        : nothing }
+      <form>
+        <vaadin-form-layout>
+          <vaadin-text-field name="firstName" label="First Name" ${field(model.firstName)}></vaadin-text-field>
+          <vaadin-text-field name="lastName" label="Last Name" ${field(model.lastName)}></vaadin-text-field>
+          <vaadin-text-field name="address" label="Address" colspan="2" ${field(model.address)}></vaadin-text-field>
+          <vaadin-text-field name="city" label="City" ${field(model.city)}></vaadin-text-field>
+          <vaadin-text-field name="telephone" label="Telephone" ${field(model.telephone)}></vaadin-text-field>
+        </vaadin-form-layout>
+        <vaadin-button @click="${this.submit}">${submitButtonText}</vaadin-button><br>
+        ${this.error !== undefined
+          ? html`<p class="error">${this.error}</p>`
+          : nothing }
+      </form>
     `;
   }
 
