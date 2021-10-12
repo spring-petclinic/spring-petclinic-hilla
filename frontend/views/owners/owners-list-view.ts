@@ -1,10 +1,10 @@
 import { html, nothing, render } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { View } from '../../views/view';
-import '@vaadin/vaadin-grid/vaadin-grid';
-import type { GridBodyRenderer } from '@vaadin/vaadin-grid';
-import '@vaadin/vaadin-grid/vaadin-grid-column';
-import '@vaadin/vaadin-grid/vaadin-grid-sort-column';
+import '@vaadin/grid';
+import type { GridBodyRenderer } from '@vaadin/grid';
+import '@vaadin/grid/vaadin-grid-column';
+import '@vaadin/grid/vaadin-grid-sort-column';
 import { router } from 'Frontend/index';
 import Owner
   from 'Frontend/generated/org/springframework/samples/petclinic/owner/Owner';

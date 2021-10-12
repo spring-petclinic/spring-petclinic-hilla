@@ -4,12 +4,12 @@ import { createRef, ref, Ref } from 'lit/directives/ref';
 import { Binder, field, ValidationError } from '@vaadin/form';
 import { Router } from '@vaadin/router';
 import { formatISO } from 'date-fns';
-import '@vaadin/vaadin-button/vaadin-button';
-import '@vaadin/vaadin-date-picker/vaadin-date-picker';
-import type { DatePickerElement } from '@vaadin/vaadin-date-picker/vaadin-date-picker';
-import '@vaadin/vaadin-form-layout/vaadin-form-layout';
-import '@vaadin/vaadin-form-layout/vaadin-form-item';
-import '@vaadin/vaadin-text-field/vaadin-text-field';
+import '@vaadin/button';
+import '@vaadin/date-picker';
+import type { DatePicker } from '@vaadin/date-picker';
+import '@vaadin/form-layout';
+import '@vaadin/form-layout/vaadin-form-item';
+import '@vaadin/text-field';
 import { View } from '../../views/view';
 import { router } from 'Frontend/index';
 import { PetEndpoint, VisitEndpoint } from 'Frontend/generated/endpoints';
@@ -38,7 +38,7 @@ export class CreateOrUpdateVisitView extends View {
 
   private binder = new Binder(this, VisitModel);
 
-  private datePickerRef: Ref<DatePickerElement> = createRef();
+  private datePickerRef: Ref<DatePicker> = createRef();
 
   connectedCallback() {
     super.connectedCallback();

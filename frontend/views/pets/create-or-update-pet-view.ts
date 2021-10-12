@@ -5,16 +5,16 @@ import { Binder, field, ValidationError } from '@vaadin/form';
 import { Router } from '@vaadin/router';
 import { selectRenderer } from 'lit-vaadin-helpers';
 import { formatISO } from 'date-fns';
-import '@vaadin/vaadin-button/vaadin-button';
-import '@vaadin/vaadin-date-picker/vaadin-date-picker';
-import type { DatePickerElement } from '@vaadin/vaadin-date-picker/vaadin-date-picker';
-import '@vaadin/vaadin-form-layout/vaadin-form-layout';
-import '@vaadin/vaadin-form-layout/vaadin-form-item';
-import '@vaadin/vaadin-item/vaadin-item';
-import '@vaadin/vaadin-list-box/vaadin-list-box';
-import '@vaadin/vaadin-select/vaadin-select';
-import type { Select } from '@vaadin/vaadin-select/vaadin-select';
-import '@vaadin/vaadin-text-field/vaadin-text-field';
+import '@vaadin/button';
+import '@vaadin/date-picker';
+import type { DatePicker } from '@vaadin/date-picker';
+import '@vaadin/form-layout';
+import '@vaadin/form-layout/vaadin-form-item';
+import '@vaadin/item';
+import '@vaadin/list-box';
+import '@vaadin/select';
+import type { Select } from '@vaadin/select';
+import '@vaadin/text-field';
 import { View } from '../../views/view';
 import { router } from 'Frontend/index';
 import { OwnerEndpoint, PetEndpoint } from 'Frontend/generated/endpoints';
@@ -50,7 +50,7 @@ export class CreateOrUpdatePetView extends View {
 
   private selectRef: Ref<Select> = createRef();
 
-  private datePickerRef: Ref<DatePickerElement> = createRef();
+  private datePickerRef: Ref<DatePicker> = createRef();
 
   connectedCallback() {
     super.connectedCallback();

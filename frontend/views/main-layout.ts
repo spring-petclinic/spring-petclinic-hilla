@@ -1,4 +1,4 @@
-import '@vaadin/vaadin-app-layout';
+import '@vaadin/app-layout';
 import '@vaadin/vaadin-lumo-styles/utility';
 import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
