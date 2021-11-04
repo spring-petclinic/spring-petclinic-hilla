@@ -20,7 +20,7 @@ interface OwnerGridItem extends Owner {
 @customElement('owners-list-view')
 export class OwnersListView extends View implements BeforeEnterObserver {
   @state()
-  private owners?: ReadonlyArray<Owner>;
+  private owners?: Owner[];
 
   @state()
   private ownersGridItems: OwnerGridItem[] = [];

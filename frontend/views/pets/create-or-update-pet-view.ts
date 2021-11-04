@@ -38,7 +38,7 @@ export class CreateOrUpdatePetView extends View {
   private pet?: PetDTO;
 
   @state()
-  private petTypes?: ReadonlyArray<PetType>;
+  private petTypes?: PetType[];
 
   @state()
   private error?: string;

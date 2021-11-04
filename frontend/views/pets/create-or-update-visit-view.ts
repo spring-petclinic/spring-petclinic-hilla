@@ -28,7 +28,7 @@ export class CreateOrUpdateVisitView extends View {
   private pet?: PetDTO;
 
   @state()
-  private visits?: ReadonlyArray<Visit>;
+  private visits?: Visit[];
 
   @state()
   private error?: string;
