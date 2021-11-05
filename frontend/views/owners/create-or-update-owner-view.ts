@@ -8,10 +8,8 @@ import '@vaadin/text-field';
 import { View } from '../../views/view';
 import { router } from 'Frontend/index';
 import { OwnerEndpoint } from 'Frontend/generated/endpoints';
-import Owner
-  from 'Frontend/generated/org/springframework/samples/petclinic/owner/Owner';
-import OwnerModel
-  from 'Frontend/generated/org/springframework/samples/petclinic/owner/OwnerModel';
+import Owner from 'Frontend/generated/org/springframework/samples/petclinic/owner/Owner';
+import OwnerModel from 'Frontend/generated/org/springframework/samples/petclinic/owner/OwnerModel';
 import { EndpointError } from '@vaadin/fusion-frontend';
 import { renderOwnerForm } from 'Frontend/views/owners/render-blocks';
 
@@ -53,13 +51,16 @@ export class CreateOrUpdateOwnerView extends View {
     const submitButtonText = !this.owner ? 'Add Owner' : 'Update Owner';
     return html`
       <h2>Owner</h2>
-      
+
       <form>
         ${renderOwnerForm(model)}
-        <vaadin-button @click="${this.submit}">${submitButtonText}</vaadin-button><br>
+        <vaadin-button @click="${this.submit}">
+          ${submitButtonText}
+        </vaadin-button>
+        <br />
         ${this.error !== undefined
           ? html`<p class="error">${this.error}</p>`
-          : nothing }
+          : nothing}
       </form>
     `;
   }
@@ -75,12 +76,15 @@ export class CreateOrUpdateOwnerView extends View {
       } else if (e instanceof ValidationError) {
         this.error = 'Saving owner failed due to validation error(s).';
       } else {
-        this.error = 'Saving owner failed due to network error. Try again later.';
+        this.error =
+          'Saving owner failed due to network error. Try again later.';
       }
       console.error(e);
       return;
     }
-    const targetUrl = router.urlForName('owner-details', { ownerId: ownerId.toString() });
+    const targetUrl = router.urlForName('owner-details', {
+      ownerId: ownerId.toString(),
+    });
     Router.go(targetUrl);
   }
 }

@@ -1,5 +1,12 @@
 import { noChange, nothing } from 'lit';
-import { Directive, directive, PartInfo, PartType, ElementPart, DirectiveParameters } from 'lit/directive.js';
+import {
+  Directive,
+  directive,
+  PartInfo,
+  PartType,
+  ElementPart,
+  DirectiveParameters,
+} from 'lit/directive.js';
 import type { DatePickerDate, DatePicker } from '@vaadin/date-picker';
 import dateFnsFormat from 'date-fns/format';
 import dateFnsParse from 'date-fns/parse';
@@ -14,7 +21,11 @@ const formatDateIso8601 = (dateParts: DatePickerDate): string => {
 const parseDateIso8601 = (inputValue: string): DatePickerDate => {
   const date = dateFnsParse(inputValue, 'yyyy-MM-dd', new Date());
 
-  return { year: date.getFullYear(), month: date.getMonth(), day: date.getDate() };
+  return {
+    year: date.getFullYear(),
+    month: date.getMonth(),
+    day: date.getDate(),
+  };
 };
 
 export function configureDatePicker(datePicker: DatePicker) {
@@ -31,7 +42,9 @@ class ConfigureDatePickerDirective extends Directive {
   constructor(partInfo: PartInfo) {
     super(partInfo);
     if (partInfo.type !== PartType.ELEMENT) {
-      throw new Error('Use as element expression "<element {configureDatePickerDirective()}"');
+      throw new Error(
+        'Use as element expression "<element {configureDatePickerDirective()}"'
+      );
     }
   }
 
@@ -46,4 +59,6 @@ class ConfigureDatePickerDirective extends Directive {
   }
 }
 
-export const configureDatePickerDirective = directive(ConfigureDatePickerDirective);
+export const configureDatePickerDirective = directive(
+  ConfigureDatePickerDirective
+);

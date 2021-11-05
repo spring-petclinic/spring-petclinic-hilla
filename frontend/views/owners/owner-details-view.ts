@@ -10,13 +10,10 @@ import '@vaadin/grid/vaadin-grid-sort-column';
 import { View } from '../../views/view';
 import { router } from 'Frontend/index';
 import { OwnerEndpoint, VisitEndpoint } from 'Frontend/generated/endpoints';
-import Owner
-  from 'Frontend/generated/org/springframework/samples/petclinic/owner/Owner';
-import Pet
-  from 'Frontend/generated/org/springframework/samples/petclinic/owner/Pet';
+import Owner from 'Frontend/generated/org/springframework/samples/petclinic/owner/Owner';
+import Pet from 'Frontend/generated/org/springframework/samples/petclinic/owner/Pet';
 import { Binder } from '@vaadin/form';
-import OwnerModel
-  from 'Frontend/generated/org/springframework/samples/petclinic/owner/OwnerModel';
+import OwnerModel from 'Frontend/generated/org/springframework/samples/petclinic/owner/OwnerModel';
 import { renderOwnerForm } from 'Frontend/views/owners/render-blocks';
 import { configureDatePickerDirective } from 'Frontend/utils';
 
@@ -80,51 +77,81 @@ export class OwnerDetailsView extends View {
     const model = this.binder.model;
     return html`
       <h2>Owner Information</h2>
-      
+
       ${renderOwnerForm(model, true)}
 
       <br />
       <div class="flex gap-m">
-        <a href="${this.getEditOwnerHref(owner?.id)}"><vaadin-button class="btn-link" tabindex="-1">Edit Owner</vaadin-button></a>
-        <a href="${this.getAddNewPetHref(owner?.id)}"><vaadin-button class="btn-link" tabindex="-1">Add New Pet</vaadin-button></a>
+        <a href="${this.getEditOwnerHref(owner?.id)}">
+          <vaadin-button class="btn-link" tabindex="-1">
+            Edit Owner
+          </vaadin-button>
+        </a>
+        <a href="${this.getAddNewPetHref(owner?.id)}">
+          <vaadin-button class="btn-link" tabindex="-1">
+            Add New Pet
+          </vaadin-button>
+        </a>
       </div>
       <br />
       <h2>Pets and Visits</h2>
 
       <div class="flex flex-col pet-list">
-        ${owner?.pets.map((pet) => html`
-          <div class="flex p-m gap-l">
-            <vaadin-form-layout .responsiveSteps="${[{ minWidth: 0, columns: 1 }]}">
-              <vaadin-form-item>
-                <label slot="label">Name</label>
-                <vaadin-text-field readonly value="${pet.name}" class="w-full"></vaadin-text-field>
-              </vaadin-form-item>
-              <vaadin-form-item>
-                <label slot="label">Birth Date</label>
-                <vaadin-date-picker class="w-full"
-                  ${configureDatePickerDirective()}
-                  value="${pet.birthDate}"
-                  readonly
-                ></vaadin-date-picker>
-              </vaadin-form-item>
-              <vaadin-form-item>
-                <label slot="label">Type</label>
-                <vaadin-text-field readonly value="${pet.type?.name}" class="w-full"></vaadin-text-field>
-              </vaadin-form-item>
-            </vaadin-form-layout>
-  
-            <div class="w-full flex flex-col gap-m">
-              <vaadin-grid .items="${pet.visits}" theme="compact" all-rows-visible>
-                <vaadin-grid-sort-column header="Visit Date" path="date"></vaadin-grid-sort-column>
-                <vaadin-grid-column path="description"></vaadin-grid-column>
-              </vaadin-grid>
-              <div class="flex gap-m">
-                <a href="${this.getEditPetHref(owner.id, pet.id)}"><vaadin-button class="btn-link" tabindex="-1">Edit Pet</vaadin-button></a>
-                <a href="${this.getAddVisitHref(owner.id, pet.id)}"><vaadin-button class="btn-link" tabindex="-1">Add Visit</vaadin-button></a>
+        ${owner?.pets.map(
+          (pet) => html`
+            <div class="flex p-m gap-l">
+              <vaadin-form-layout
+                .responsiveSteps="${[{ minWidth: 0, columns: 1 }]}">
+                <vaadin-form-item>
+                  <label slot="label">Name</label>
+                  <vaadin-text-field
+                    readonly
+                    value="${pet.name}"
+                    class="w-full"></vaadin-text-field>
+                </vaadin-form-item>
+                <vaadin-form-item>
+                  <label slot="label">Birth Date</label>
+                  <vaadin-date-picker
+                    class="w-full"
+                    ${configureDatePickerDirective()}
+                    value="${pet.birthDate}"
+                    readonly></vaadin-date-picker>
+                </vaadin-form-item>
+                <vaadin-form-item>
+                  <label slot="label">Type</label>
+                  <vaadin-text-field
+                    readonly
+                    value="${pet.type?.name}"
+                    class="w-full"></vaadin-text-field>
+                </vaadin-form-item>
+              </vaadin-form-layout>
+
+              <div class="w-full flex flex-col gap-m">
+                <vaadin-grid
+                  .items="${pet.visits}"
+                  theme="compact"
+                  all-rows-visible>
+                  <vaadin-grid-sort-column
+                    header="Visit Date"
+                    path="date"></vaadin-grid-sort-column>
+                  <vaadin-grid-column path="description"></vaadin-grid-column>
+                </vaadin-grid>
+                <div class="flex gap-m">
+                  <a href="${this.getEditPetHref(owner.id, pet.id)}">
+                    <vaadin-button class="btn-link" tabindex="-1">
+                      Edit Pet
+                    </vaadin-button>
+                  </a>
+                  <a href="${this.getAddVisitHref(owner.id, pet.id)}">
+                    <vaadin-button class="btn-link" tabindex="-1">
+                      Add Visit
+                    </vaadin-button>
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-        `)}
+          `
+        )}
       </div>
     `;
   }
