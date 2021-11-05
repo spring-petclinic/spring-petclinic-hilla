@@ -6,10 +6,14 @@ import type { GridBodyRenderer } from '@vaadin/grid';
 import '@vaadin/grid/vaadin-grid-column';
 import '@vaadin/grid/vaadin-grid-sort-column';
 import { router } from 'Frontend/index';
-import Owner
-  from 'Frontend/generated/org/springframework/samples/petclinic/owner/Owner';
+import Owner from 'Frontend/generated/org/springframework/samples/petclinic/owner/Owner';
 import { OwnerEndpoint } from 'Frontend/generated/endpoints';
-import type { BeforeEnterObserver, PreventAndRedirectCommands, Router, RouterLocation } from '@vaadin/router';
+import type {
+  BeforeEnterObserver,
+  PreventAndRedirectCommands,
+  Router,
+  RouterLocation,
+} from '@vaadin/router';
 import './find-owners-view';
 
 interface OwnerGridItem extends Owner {
@@ -29,8 +33,13 @@ export class OwnersListView extends View implements BeforeEnterObserver {
 
   private nameRenderer: GridBodyRenderer<Owner> = (root, _, model) => {
     const owner = model.item;
-    render(html`<a href="${this.getOwnerHref(owner)}">${owner.firstName} ${owner.lastName}</a>`, root);
-  }
+    render(
+      html`<a href="${this.getOwnerHref(owner)}">
+        ${owner.firstName} ${owner.lastName}
+      </a>`,
+      root
+    );
+  };
 
   constructor() {
     super();
@@ -38,7 +47,11 @@ export class OwnersListView extends View implements BeforeEnterObserver {
   }
 
   // Called by Router
-  async onBeforeEnter(location: RouterLocation, commands: PreventAndRedirectCommands, _router: Router) {
+  async onBeforeEnter(
+    location: RouterLocation,
+    commands: PreventAndRedirectCommands,
+    _router: Router
+  ) {
     await this.processSearch(location);
     if (this.owners?.length === 1) {
       return commands.redirect(this.getOwnerHref(this.owners[0]));
@@ -83,20 +96,30 @@ export class OwnersListView extends View implements BeforeEnterObserver {
 
   renderNotFound() {
     return html`
-      <find-owners-view last-name="${this.lastNameQuery}" hint-text="has not been found"></find-owners-view>
+      <find-owners-view
+        last-name="${this.lastNameQuery}"
+        hint-text="has not been found"></find-owners-view>
     `;
   }
 
   renderList() {
     return html`
       <h2>Owners</h2>
-      
-      <vaadin-grid .items="${this.ownersGridItems}" theme="row-stripes" all-rows-visible>
-        <vaadin-grid-sort-column header="Name" path="fullNameForSorting" .renderer="${this.nameRenderer}"></vaadin-grid-sort-column>
+
+      <vaadin-grid
+        .items="${this.ownersGridItems}"
+        theme="row-stripes"
+        all-rows-visible>
+        <vaadin-grid-sort-column
+          header="Name"
+          path="fullNameForSorting"
+          .renderer="${this.nameRenderer}"></vaadin-grid-sort-column>
         <vaadin-grid-column path="address"></vaadin-grid-column>
         <vaadin-grid-sort-column path="city"></vaadin-grid-sort-column>
         <vaadin-grid-column path="telephone"></vaadin-grid-column>
-        <vaadin-grid-column header="Pets" path="petsString"></vaadin-grid-column>
+        <vaadin-grid-column
+          header="Pets"
+          path="petsString"></vaadin-grid-column>
       </vaadin-grid>
     `;
   }
