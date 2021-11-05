@@ -13,21 +13,24 @@ export class MainLayout extends Layout {
   render() {
     return html`
       <vaadin-app-layout>
-        <header class="bg-base border-b border-contrast-10 box-border flex flex-col w-full" slot="navbar">
+        <header
+          class="bg-base border-b border-contrast-10 box-border flex flex-col w-full"
+          slot="navbar">
           <nav class="flex gap-s overflow-auto px-m">
             ${this.getMenuRoutes().map(
-      (viewRoute) => html`
+              (viewRoute) => html`
                 <a
                   ?highlight=${this.highlightNav(viewRoute.path)}
                   class="flex 
                   h-m items-center px-s relative text-secondary"
-                  href=${router.urlForPath(viewRoute.path)}
-                >
+                  href=${router.urlForPath(viewRoute.path)}>
                   <span class="${viewRoute.icon} me-s text-l"></span>
-                  <span class="font-medium text-s whitespace-nowrap">${viewRoute.title}</span>
+                  <span class="font-medium text-s whitespace-nowrap">
+                    ${viewRoute.title}
+                  </span>
                 </a>
               `
-    )}
+            )}
           </nav>
         </header>
         <div class="px-m">
@@ -35,9 +38,11 @@ export class MainLayout extends Layout {
             <main>
               <slot></slot>
             </main>
-    
+
             <footer class="mt-xl text-center">
-              <img src="/resources/images/spring-pivotal-logo.png" alt="Sponsored by Pivotal" />
+              <img
+                src="/resources/images/spring-pivotal-logo.png"
+                alt="Sponsored by Pivotal" />
             </footer>
           </div>
         </div>
@@ -46,7 +51,9 @@ export class MainLayout extends Layout {
   }
 
   isSubRoute(location: RouterLocation, parentRouteName: string) {
-    return location.routes.find((r) => r.name === parentRouteName) !== undefined;
+    return (
+      location.routes.find((r) => r.name === parentRouteName) !== undefined
+    );
   }
 
   highlightNav(routePath: string) {
@@ -59,8 +66,10 @@ export class MainLayout extends Layout {
       return true;
     }
     // Highlight "Find owners" if this is any view under the owners-base route
-    if (routePath === router.urlForName('find-owners')
-        && this.isSubRoute(router.location, 'owners-base')) {
+    if (
+      routePath === router.urlForName('find-owners') &&
+      this.isSubRoute(router.location, 'owners-base')
+    ) {
       return true;
     }
     return false;

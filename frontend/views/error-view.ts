@@ -16,7 +16,14 @@ export class ErrorView extends View {
   render() {
     return html`
       <p>See JS console for errors.</p>
-      <p>For more information see the Fusion <a href="https://vaadin.com/docs/latest/fusion/application/error-handling">Error Handling</a> documentation.</p>
+      <p>
+        For more information see the Fusion
+        <a
+          href="https://vaadin.com/docs/latest/fusion/application/error-handling"
+          >Error Handling</a
+        >
+        documentation.
+      </p>
     `;
   }
 }

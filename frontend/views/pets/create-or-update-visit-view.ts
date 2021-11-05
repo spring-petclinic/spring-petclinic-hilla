@@ -13,14 +13,11 @@ import '@vaadin/grid/vaadin-grid-sort-column';
 import { View } from '../../views/view';
 import { router } from 'Frontend/index';
 import { PetEndpoint, VisitEndpoint } from 'Frontend/generated/endpoints';
-import PetDTO
-  from 'Frontend/generated/org/springframework/samples/petclinic/dto/PetDTO';
+import PetDTO from 'Frontend/generated/org/springframework/samples/petclinic/dto/PetDTO';
 import { EndpointError } from '@vaadin/fusion-frontend';
 import { configureDatePickerDirective } from 'Frontend/utils';
-import VisitModel
-  from 'Frontend/generated/org/springframework/samples/petclinic/visit/VisitModel';
-import Visit
-  from 'Frontend/generated/org/springframework/samples/petclinic/visit/Visit';
+import VisitModel from 'Frontend/generated/org/springframework/samples/petclinic/visit/VisitModel';
+import Visit from 'Frontend/generated/org/springframework/samples/petclinic/visit/Visit';
 
 @customElement('create-or-update-visit-view')
 export class CreateOrUpdateVisitView extends View {
@@ -76,21 +73,35 @@ export class CreateOrUpdateVisitView extends View {
     const model = this.binder.model;
     return html`
       <h2>New Visit</h2>
-      
+
       <h3>Pet</h3>
-      
-      <vaadin-form-layout .responsiveSteps="${[{"minWidth":0,"columns":1},{"minWidth":"30em","columns":2},{"minWidth":"60em","columns":4}]}">
-        <vaadin-text-field readonly label="Name" value="${this.pet?.name}"></vaadin-text-field>
+
+      <vaadin-form-layout
+        .responsiveSteps="${[
+          { minWidth: 0, columns: 1 },
+          { minWidth: '30em', columns: 2 },
+          { minWidth: '60em', columns: 4 },
+        ]}">
+        <vaadin-text-field
+          readonly
+          label="Name"
+          value="${this.pet?.name}"></vaadin-text-field>
         <vaadin-date-picker
           readonly
           ${configureDatePickerDirective()}
           label="Birth Date"
-          value="${this.pet?.birthDate}"
-        ></vaadin-date-picker>
-        <vaadin-text-field readonly label="Type" value="${this.pet?.typeName}"></vaadin-text-field>
-        <vaadin-text-field readonly label="Owner" value="${this.pet?.ownerFirstName} ${this.pet?.ownerLastName}"></vaadin-text-field>
+          value="${this.pet?.birthDate}"></vaadin-date-picker>
+        <vaadin-text-field
+          readonly
+          label="Type"
+          value="${this.pet?.typeName}"></vaadin-text-field>
+        <vaadin-text-field
+          readonly
+          label="Owner"
+          value="${this.pet?.ownerFirstName} ${this.pet
+            ?.ownerLastName}"></vaadin-text-field>
       </vaadin-form-layout>
-    
+
       <form class="form-horizontal" method="post">
         <div class="form-group has-feedback">
           <vaadin-form-layout>
@@ -99,15 +110,13 @@ export class CreateOrUpdateVisitView extends View {
               <vaadin-date-picker
                 ${configureDatePickerDirective()}
                 ${field(model.date)}
-                .max="${this.today}"
-              ></vaadin-date-picker>
+                .max="${this.today}"></vaadin-date-picker>
             </vaadin-form-item>
             <vaadin-form-item colspan="2">
               <label slot="label">Description</label>
               <vaadin-text-field
                 ${field(model.description)}
-                style="width: 100%;"
-              ></vaadin-text-field>
+                style="width: 100%;"></vaadin-text-field>
             </vaadin-form-item>
             <vaadin-form-item colspan="2">
               <vaadin-button @click="${this.submit}">Add Visit</vaadin-button>
@@ -115,10 +124,12 @@ export class CreateOrUpdateVisitView extends View {
           </vaadin-form-layout>
         </div>
       </form>
-    
+
       <h3>Previous Visits</h3>
       <vaadin-grid .items="${this.visits}" all-rows-visible>
-        <vaadin-grid-sort-column header="Visit Date" path="date"></vaadin-grid-sort-column>
+        <vaadin-grid-sort-column
+          header="Visit Date"
+          path="date"></vaadin-grid-sort-column>
         <vaadin-grid-column path="description"></vaadin-grid-column>
       </vaadin-grid>
     `;
@@ -138,12 +149,15 @@ export class CreateOrUpdateVisitView extends View {
       } else if (e instanceof ValidationError) {
         this.error = 'Saving visit failed due to validation error(s).';
       } else {
-        this.error = 'Saving visit failed due to network error. Try again later.';
+        this.error =
+          'Saving visit failed due to network error. Try again later.';
       }
       console.error(e);
       return;
     }
-    const targetUrl = router.urlForName('owner-details', { ownerId: this.pet!.ownerId!.toString() });
+    const targetUrl = router.urlForName('owner-details', {
+      ownerId: this.pet!.ownerId!.toString(),
+    });
     Router.go(targetUrl);
   }
 }

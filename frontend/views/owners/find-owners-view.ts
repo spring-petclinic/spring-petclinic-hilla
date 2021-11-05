@@ -11,7 +11,6 @@ import { Router } from '@vaadin/router';
 
 @customElement('find-owners-view')
 export class FindOwnersView extends View {
-
   @property({ type: String, attribute: 'last-name' })
   lastName: string = '';
 
@@ -21,19 +20,18 @@ export class FindOwnersView extends View {
   render() {
     return html`
       <h2>Find Owners</h2>
-      
+
       <vaadin-text-field
         label="Last name"
         .value="${this.lastName}"
         @change="${this.lastNameChanged}"
         @keyup="${this.textFieldKeyUp}"
         helper-text="${this.hintText}"
-        clear-button-visible
-      >
+        clear-button-visible>
         <vaadin-icon slot="prefix" icon="vaadin:search"></vaadin-icon>
       </vaadin-text-field>
-      <vaadin-button @click="${this.findOwner}">Find Owner</vaadin-button><br>
-      <br>
+      <vaadin-button @click="${this.findOwner}">Find Owner</vaadin-button><br />
+      <br />
       <vaadin-button @click="${this.addOwner}">Add Owner</vaadin-button>
     `;
   }

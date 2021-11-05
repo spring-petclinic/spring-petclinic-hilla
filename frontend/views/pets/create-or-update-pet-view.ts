@@ -17,15 +17,11 @@ import '@vaadin/text-field';
 import { View } from '../../views/view';
 import { router } from 'Frontend/index';
 import { OwnerEndpoint, PetEndpoint } from 'Frontend/generated/endpoints';
-import Owner
-  from 'Frontend/generated/org/springframework/samples/petclinic/owner/Owner';
-import PetDTO
-  from 'Frontend/generated/org/springframework/samples/petclinic/dto/PetDTO';
-import PetDTOModel
-  from 'Frontend/generated/org/springframework/samples/petclinic/dto/PetDTOModel';
+import Owner from 'Frontend/generated/org/springframework/samples/petclinic/owner/Owner';
+import PetDTO from 'Frontend/generated/org/springframework/samples/petclinic/dto/PetDTO';
+import PetDTOModel from 'Frontend/generated/org/springframework/samples/petclinic/dto/PetDTOModel';
 import { EndpointError } from '@vaadin/fusion-frontend';
-import PetType
-  from 'Frontend/generated/org/springframework/samples/petclinic/owner/PetType';
+import PetType from 'Frontend/generated/org/springframework/samples/petclinic/owner/PetType';
 import { configureDatePickerDirective } from 'Frontend/utils';
 
 @customElement('create-or-update-pet-view')
@@ -80,7 +76,10 @@ export class CreateOrUpdatePetView extends View {
       this.petTypes = await PetEndpoint.findPetTypes();
       // Preselect first pet type when not editing an existing pet
       if (!this.pet) {
-        this.binder.value = { ...this.binder.value, typeId: this.petTypes[0].id! };
+        this.binder.value = {
+          ...this.binder.value,
+          typeId: this.petTypes[0].id!,
+        };
       }
     } finally {
       if (!this.petTypes) {
@@ -116,7 +115,7 @@ export class CreateOrUpdatePetView extends View {
     const submitButtonText = !this.pet ? 'Add Pet' : 'Update Pet';
     return html`
       <h2>Pet</h2>
-      
+
       <vaadin-form-layout>
         <vaadin-form-item colspan="2">
           <span slot="label">Owner</span>
@@ -131,8 +130,7 @@ export class CreateOrUpdatePetView extends View {
           <vaadin-date-picker
             ${configureDatePickerDirective()}
             ${field(model.birthDate)}
-            .max="${this.today}"
-          ></vaadin-date-picker>
+            .max="${this.today}"></vaadin-date-picker>
         </vaadin-form-item>
         <vaadin-form-item>
           <label slot="label">Type</label>
@@ -144,18 +142,18 @@ export class CreateOrUpdatePetView extends View {
                 <vaadin-list-box>
                   ${this.petTypes?.map(
                     ({ id, name }) =>
-                      html`<vaadin-item .value="${id}">${name}</vaadin-item>` 
+                      html`<vaadin-item .value="${id}">${name}</vaadin-item>`
                   )}
                 </vaadin-list-box>
               `
-            )}
-          ></vaadin-select>
+            )}></vaadin-select>
         </vaadin-form-item>
       </vaadin-form-layout>
-      <vaadin-button @click="${this.submit}">${submitButtonText}</vaadin-button><br>
+      <vaadin-button @click="${this.submit}">${submitButtonText}</vaadin-button
+      ><br />
       ${this.error !== undefined
         ? html`<p class="error">${this.error}</p>`
-        : nothing }
+        : nothing}
     `;
   }
 
@@ -175,7 +173,9 @@ export class CreateOrUpdatePetView extends View {
       console.error(e);
       return;
     }
-    const targetUrl = router.urlForName('owner-details', { ownerId: this.owner!.id!.toString() });
+    const targetUrl = router.urlForName('owner-details', {
+      ownerId: this.owner!.id!.toString(),
+    });
     Router.go(targetUrl);
   }
 }
