@@ -1,5 +1,12 @@
 import { html } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
+import '@vaadin/button';
+import '@vaadin/form-layout';
+import '@vaadin/form-layout/vaadin-form-item';
+import '@vaadin/text-field';
+import '@vaadin/grid';
+import '@vaadin/grid/vaadin-grid-column';
+import '@vaadin/grid/vaadin-grid-sort-column';
 import { View } from '../../views/view';
 import { router } from 'Frontend/index';
 import { OwnerEndpoint, VisitEndpoint } from 'Frontend/generated/endpoints';
@@ -7,11 +14,18 @@ import Owner
   from 'Frontend/generated/org/springframework/samples/petclinic/owner/Owner';
 import Pet
   from 'Frontend/generated/org/springframework/samples/petclinic/owner/Pet';
+import { Binder } from '@vaadin/form';
+import OwnerModel
+  from 'Frontend/generated/org/springframework/samples/petclinic/owner/OwnerModel';
+import { renderOwnerForm } from 'Frontend/views/owners/render-blocks';
+import { configureDatePickerDirective } from 'Frontend/utils';
 
 @customElement('owner-details-view')
 export class OwnerDetailsView extends View {
   @state()
   private owner?: Owner;
+
+  private binder = new Binder(this, OwnerModel);
 
   connectedCallback() {
     super.connectedCallback();
@@ -20,7 +34,9 @@ export class OwnerDetailsView extends View {
   }
 
   async fetchOwner(id: number) {
+    this.binder.clear();
     this.owner = await OwnerEndpoint.findById(id);
+    if (!this.owner) return;
     // Fetch visits for pets
     if (this.owner?.pets) {
       let pets: Pet[] = [];
@@ -30,6 +46,7 @@ export class OwnerDetailsView extends View {
       }
       this.owner = { ...this.owner, pets };
     }
+    this.binder.read(this.owner);
   }
 
   getEditOwnerHref(ownerId: number | undefined) {
@@ -60,77 +77,55 @@ export class OwnerDetailsView extends View {
 
   render() {
     const { owner } = this;
+    const model = this.binder.model;
     return html`
       <h2>Owner Information</h2>
       
-      <table class="table table-striped">
-        <tr>
-          <th>Name</th>
-          <td><b>${owner?.firstName} ${owner?.lastName}</b></td>
-        </tr>
-        <tr>
-          <th>Address</th>
-          <td>${owner?.address}</td>
-        </tr>
-        <tr>
-          <th>City</th>
-          <td>${owner?.city}</td>
-        </tr>
-        <tr>
-          <th>Telephone</th>
-          <td>${owner?.telephone}</td>
-        </tr>
-      </table>
-    
-      <a href="${this.getEditOwnerHref(owner?.id)}" class="btn btn-default">Edit
-        Owner</a>
-      <a href="${this.getAddNewPetHref(owner?.id)}" class="btn btn-default">Add
-        New Pet</a>
-    
+      ${renderOwnerForm(model, true)}
+
       <br />
-      <br />
+      <div class="flex gap-m">
+        <a href="${this.getEditOwnerHref(owner?.id)}"><vaadin-button class="btn-link" tabindex="-1">Edit Owner</vaadin-button></a>
+        <a href="${this.getAddNewPetHref(owner?.id)}"><vaadin-button class="btn-link" tabindex="-1">Add New Pet</vaadin-button></a>
+      </div>
       <br />
       <h2>Pets and Visits</h2>
-    
-      <table class="table table-striped">
+
+      <div class="flex flex-col pet-list">
         ${owner?.pets.map((pet) => html`
-        <tr>
-          <td valign="top">
-            <dl class="dl-horizontal">
-              <dt>Name</dt>
-              <dd>${pet.name}</dd>
-              
-              <dt>Birth Date</dt>
-              <dd>${pet.birthDate}</dd>
-              
-              <dt>Type</dt>
-              <dd>${pet.type?.name}</dd>
-            </dl>
-          </td>
-          <td valign="top">
-            <table class="table-condensed">
-              <thead>
-                <tr>
-                  <th>Visit Date</th>
-                  <th>Description</th>
-                </tr>
-              </thead>
-              ${pet.visits.map((visit) => html`
-              <tr>
-                <td>${visit.date}</td>
-                <td>${visit.description}</td>
-              </tr>
-              `)}
-              <tr>
-                <td><a href="${this.getEditPetHref(owner.id, pet.id)}">Edit Pet</a></td>
-                <td><a href="${this.getAddVisitHref(owner.id, pet.id)}">Add Visit</a></td>
-              </tr>
-            </table>
-          </td>
-        </tr>
+          <div class="flex p-m gap-l">
+            <vaadin-form-layout .responsiveSteps="${[{ minWidth: 0, columns: 1 }]}">
+              <vaadin-form-item>
+                <label slot="label">Name</label>
+                <vaadin-text-field readonly value="${pet.name}" class="w-full"></vaadin-text-field>
+              </vaadin-form-item>
+              <vaadin-form-item>
+                <label slot="label">Birth Date</label>
+                <vaadin-date-picker class="w-full"
+                  ${configureDatePickerDirective()}
+                  value="${pet.birthDate}"
+                  readonly
+                ></vaadin-date-picker>
+              </vaadin-form-item>
+              <vaadin-form-item>
+                <label slot="label">Type</label>
+                <vaadin-text-field readonly value="${pet.type?.name}" class="w-full"></vaadin-text-field>
+              </vaadin-form-item>
+            </vaadin-form-layout>
+  
+            <div class="w-full flex flex-col gap-m">
+              <vaadin-grid .items="${pet.visits}" theme="compact" all-rows-visible>
+                <vaadin-grid-sort-column header="Visit Date" path="date"></vaadin-grid-sort-column>
+                <vaadin-grid-column path="description"></vaadin-grid-column>
+              </vaadin-grid>
+              <div class="flex gap-m">
+                <a href="${this.getEditPetHref(owner.id, pet.id)}"><vaadin-button class="btn-link" tabindex="-1">Edit Pet</vaadin-button></a>
+                <a href="${this.getAddVisitHref(owner.id, pet.id)}"><vaadin-button class="btn-link" tabindex="-1">Add Visit</vaadin-button></a>
+              </div>
+            </div>
+          </div>
         `)}
-    
-      </table>
+      </div>
     `;
   }
 }
