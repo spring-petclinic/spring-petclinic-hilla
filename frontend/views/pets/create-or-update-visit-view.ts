@@ -6,8 +6,10 @@ import { formatISO } from 'date-fns';
 import '@vaadin/button';
 import '@vaadin/date-picker';
 import '@vaadin/form-layout';
-import '@vaadin/form-layout/vaadin-form-item';
 import '@vaadin/text-field';
+import '@vaadin/grid';
+import '@vaadin/grid/vaadin-grid-column';
+import '@vaadin/grid/vaadin-grid-sort-column';
 import { View } from '../../views/view';
 import { router } from 'Frontend/index';
 import { PetEndpoint, VisitEndpoint } from 'Frontend/generated/endpoints';
@@ -75,23 +77,19 @@ export class CreateOrUpdateVisitView extends View {
     return html`
       <h2>New Visit</h2>
       
-      <b>Pet</b>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Birth Date</th>
-            <th>Type</th>
-            <th>Owner</th>
-          </tr>
-        </thead>
-        <tr>
-          <td>${this.pet?.name}</td>
-          <td>${this.pet?.birthDate}</td>
-          <td>${this.pet?.typeName}</td>
-          <td>${this.pet?.ownerFirstName} ${this.pet?.ownerLastName}</td>
-        </tr>
-      </table>
+      <h3>Pet</h3>
+      
+      <vaadin-form-layout .responsiveSteps="${[{"minWidth":0,"columns":1},{"minWidth":"30em","columns":2},{"minWidth":"60em","columns":4}]}">
+        <vaadin-text-field readonly label="Name" value="${this.pet?.name}"></vaadin-text-field>
+        <vaadin-date-picker
+          readonly
+          ${configureDatePickerDirective()}
+          label="Birth Date"
+          value="${this.pet?.birthDate}"
+        ></vaadin-date-picker>
+        <vaadin-text-field readonly label="Type" value="${this.pet?.typeName}"></vaadin-text-field>
+        <vaadin-text-field readonly label="Owner" value="${this.pet?.ownerFirstName} ${this.pet?.ownerLastName}"></vaadin-text-field>
+      </vaadin-form-layout>
     
       <form class="form-horizontal" method="post">
         <div class="form-group has-feedback">
@@ -118,22 +116,11 @@ export class CreateOrUpdateVisitView extends View {
         </div>
       </form>
     
-      <br />
-      <b>Previous Visits</b>
-      <table class="table table-striped">
-        <tr>
-          <th>Date</th>
-          <th>Description</th>
-        </tr>
-        ${this.visits?.map(
-          ({ date, description }) => html`
-            <tr>
-              <td>${date}</td>
-              <td>${description}</td>
-            </tr>
-          `
-        )}
-      </table>
+      <h3>Previous Visits</h3>
+      <vaadin-grid .items="${this.visits}" all-rows-visible>
+        <vaadin-grid-sort-column header="Visit Date" path="date"></vaadin-grid-sort-column>
+        <vaadin-grid-column path="description"></vaadin-grid-column>
+      </vaadin-grid>
     `;
   }
 
