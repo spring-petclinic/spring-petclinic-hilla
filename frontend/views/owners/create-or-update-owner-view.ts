@@ -1,6 +1,6 @@
 import { html, nothing } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { Binder, field, ValidationError } from '@vaadin/form';
+import { Binder, ValidationError } from '@vaadin/form';
 import { Router } from '@vaadin/router';
 import '@vaadin/button';
 import '@vaadin/form-layout';
@@ -13,6 +13,7 @@ import Owner
 import OwnerModel
   from 'Frontend/generated/org/springframework/samples/petclinic/owner/OwnerModel';
 import { EndpointError } from '@vaadin/fusion-frontend';
+import { renderOwnerForm } from 'Frontend/views/owners/render-blocks';
 
 @customElement('create-or-update-owner-view')
 export class CreateOrUpdateOwnerView extends View {
@@ -54,13 +55,7 @@ export class CreateOrUpdateOwnerView extends View {
       <h2>Owner</h2>
       
       <form>
-        <vaadin-form-layout>
-          <vaadin-text-field name="firstName" label="First Name" ${field(model.firstName)}></vaadin-text-field>
-          <vaadin-text-field name="lastName" label="Last Name" ${field(model.lastName)}></vaadin-text-field>
-          <vaadin-text-field name="address" label="Address" colspan="2" ${field(model.address)}></vaadin-text-field>
-          <vaadin-text-field name="city" label="City" ${field(model.city)}></vaadin-text-field>
-          <vaadin-text-field name="telephone" label="Telephone" ${field(model.telephone)}></vaadin-text-field>
-        </vaadin-form-layout>
+        ${renderOwnerForm(model)}
         <vaadin-button @click="${this.submit}">${submitButtonText}</vaadin-button><br>
         ${this.error !== undefined
           ? html`<p class="error">${this.error}</p>`
