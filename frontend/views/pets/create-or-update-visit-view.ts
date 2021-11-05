@@ -1,12 +1,10 @@
 import { html } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { createRef, ref, Ref } from 'lit/directives/ref';
 import { Binder, field, ValidationError } from '@vaadin/form';
 import { Router } from '@vaadin/router';
 import { formatISO } from 'date-fns';
 import '@vaadin/button';
 import '@vaadin/date-picker';
-import type { DatePicker } from '@vaadin/date-picker';
 import '@vaadin/form-layout';
 import '@vaadin/form-layout/vaadin-form-item';
 import '@vaadin/text-field';
@@ -16,7 +14,7 @@ import { PetEndpoint, VisitEndpoint } from 'Frontend/generated/endpoints';
 import PetDTO
   from 'Frontend/generated/org/springframework/samples/petclinic/dto/PetDTO';
 import { EndpointError } from '@vaadin/fusion-frontend';
-import { configureDatePicker } from 'Frontend/utils';
+import { configureDatePickerDirective } from 'Frontend/utils';
 import VisitModel
   from 'Frontend/generated/org/springframework/samples/petclinic/visit/VisitModel';
 import Visit
@@ -37,8 +35,6 @@ export class CreateOrUpdateVisitView extends View {
   private today = formatISO(Date.now(), { representation: 'date' });
 
   private binder = new Binder(this, VisitModel);
-
-  private datePickerRef: Ref<DatePicker> = createRef();
 
   connectedCallback() {
     super.connectedCallback();
@@ -70,7 +66,6 @@ export class CreateOrUpdateVisitView extends View {
   }
 
   firstUpdated() {
-    configureDatePicker(this.datePickerRef.value!);
     // Preselect today's date
     this.binder.value = { ...this.binder.value, date: this.today };
   }
@@ -104,7 +99,7 @@ export class CreateOrUpdateVisitView extends View {
             <vaadin-form-item colspan="2">
               <span slot="label">Date</span>
               <vaadin-date-picker
-                ${ref(this.datePickerRef)}
+                ${configureDatePickerDirective()}
                 ${field(model.date)}
                 .max="${this.today}"
               ></vaadin-date-picker>

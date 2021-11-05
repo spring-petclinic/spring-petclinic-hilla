@@ -1,3 +1,5 @@
+import { noChange, nothing } from 'lit';
+import { Directive, directive, PartInfo, PartType, ElementPart, DirectiveParameters } from 'lit/directive.js';
 import type { DatePickerDate, DatePicker } from '@vaadin/date-picker';
 import dateFnsFormat from 'date-fns/format';
 import dateFnsParse from 'date-fns/parse';
@@ -24,3 +26,24 @@ export function configureDatePicker(datePicker: DatePicker) {
     };
   }
 }
+
+class ConfigureDatePickerDirective extends Directive {
+  constructor(partInfo: PartInfo) {
+    super(partInfo);
+    if (partInfo.type !== PartType.ELEMENT) {
+      throw new Error('Use as element expression "<element {configureDatePickerDirective()}"');
+    }
+  }
+
+  render() {
+    return nothing;
+  }
+
+  update(part: ElementPart, params: DirectiveParameters<this>) {
+    const datePicker = part.element as DatePicker;
+    configureDatePicker(datePicker);
+    return noChange;
+  }
+}
+
+export const configureDatePickerDirective = directive(ConfigureDatePickerDirective);
