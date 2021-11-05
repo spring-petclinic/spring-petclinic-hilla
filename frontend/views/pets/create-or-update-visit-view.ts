@@ -15,7 +15,6 @@ import { router } from 'Frontend/index';
 import { PetEndpoint, VisitEndpoint } from 'Frontend/generated/endpoints';
 import PetDTO from 'Frontend/generated/org/springframework/samples/petclinic/dto/PetDTO';
 import { EndpointError } from '@vaadin/fusion-frontend';
-import { configureDatePickerDirective } from 'Frontend/utils';
 import VisitModel from 'Frontend/generated/org/springframework/samples/petclinic/visit/VisitModel';
 import Visit from 'Frontend/generated/org/springframework/samples/petclinic/visit/Visit';
 
@@ -76,57 +75,40 @@ export class CreateOrUpdateVisitView extends View {
 
       <h3>Pet</h3>
 
-      <vaadin-form-layout
-        .responsiveSteps="${[
-          { minWidth: 0, columns: 1 },
-          { minWidth: '30em', columns: 2 },
-          { minWidth: '60em', columns: 4 },
-        ]}">
+      <div class="flex flex-wrap gap-m">
         <vaadin-text-field
           readonly
           label="Name"
-          value="${this.pet?.name}"></vaadin-text-field>
+          value=${this.pet?.name}></vaadin-text-field>
         <vaadin-date-picker
           readonly
-          ${configureDatePickerDirective()}
           label="Birth Date"
-          value="${this.pet?.birthDate}"></vaadin-date-picker>
+          value=${this.pet?.birthDate}></vaadin-date-picker>
         <vaadin-text-field
           readonly
           label="Type"
-          value="${this.pet?.typeName}"></vaadin-text-field>
+          value=${this.pet?.typeName}></vaadin-text-field>
         <vaadin-text-field
           readonly
           label="Owner"
           value="${this.pet?.ownerFirstName} ${this.pet
             ?.ownerLastName}"></vaadin-text-field>
-      </vaadin-form-layout>
+      </div>
 
-      <form class="form-horizontal" method="post">
-        <div class="form-group has-feedback">
-          <vaadin-form-layout>
-            <vaadin-form-item colspan="2">
-              <span slot="label">Date</span>
-              <vaadin-date-picker
-                ${configureDatePickerDirective()}
-                ${field(model.date)}
-                .max="${this.today}"></vaadin-date-picker>
-            </vaadin-form-item>
-            <vaadin-form-item colspan="2">
-              <label slot="label">Description</label>
-              <vaadin-text-field
-                ${field(model.description)}
-                style="width: 100%;"></vaadin-text-field>
-            </vaadin-form-item>
-            <vaadin-form-item colspan="2">
-              <vaadin-button @click="${this.submit}">Add Visit</vaadin-button>
-            </vaadin-form-item>
-          </vaadin-form-layout>
-        </div>
-      </form>
+      <div class="form-group has-feedback">
+        <vaadin-date-picker
+          label="Date"
+          ${field(model.date)}
+          .max=${this.today}></vaadin-date-picker>
+        <vaadin-text-field
+          label="Description"
+          ${field(model.description)}
+          class="w-full"></vaadin-text-field>
+        <vaadin-button @click=${this.submit}>Add Visit</vaadin-button>
+      </div>
 
       <h3>Previous Visits</h3>
-      <vaadin-grid .items="${this.visits}" all-rows-visible>
+      <vaadin-grid .items=${this.visits} all-rows-visible>
         <vaadin-grid-sort-column
           header="Visit Date"
           path="date"></vaadin-grid-sort-column>
