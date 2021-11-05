@@ -7,7 +7,6 @@ import { selectRenderer } from 'lit-vaadin-helpers';
 import { formatISO } from 'date-fns';
 import '@vaadin/button';
 import '@vaadin/date-picker';
-import type { DatePicker } from '@vaadin/date-picker';
 import '@vaadin/form-layout';
 import '@vaadin/form-layout/vaadin-form-item';
 import '@vaadin/item';
@@ -27,7 +26,7 @@ import PetDTOModel
 import { EndpointError } from '@vaadin/fusion-frontend';
 import PetType
   from 'Frontend/generated/org/springframework/samples/petclinic/owner/PetType';
-import { configureDatePicker } from 'Frontend/utils';
+import { configureDatePickerDirective } from 'Frontend/utils';
 
 @customElement('create-or-update-pet-view')
 export class CreateOrUpdatePetView extends View {
@@ -49,8 +48,6 @@ export class CreateOrUpdatePetView extends View {
   private binder = new Binder(this, PetDTOModel);
 
   private selectRef: Ref<Select> = createRef();
-
-  private datePickerRef: Ref<DatePicker> = createRef();
 
   connectedCallback() {
     super.connectedCallback();
@@ -107,10 +104,6 @@ export class CreateOrUpdatePetView extends View {
     }
   }
 
-  firstUpdated() {
-    configureDatePicker(this.datePickerRef.value!);
-  }
-
   async updated(changedProperties: PropertyValues) {
     if (changedProperties.has('petTypes')) {
       // Need to manually trigger the select renderer whenever the item set changes dynamically
@@ -136,7 +129,7 @@ export class CreateOrUpdatePetView extends View {
         <vaadin-form-item>
           <label slot="label">Birth Date</label>
           <vaadin-date-picker
-            ${ref(this.datePickerRef)}
+            ${configureDatePickerDirective()}
             ${field(model.birthDate)}
             .max="${this.today}"
           ></vaadin-date-picker>
