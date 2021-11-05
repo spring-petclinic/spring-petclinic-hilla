@@ -28,14 +28,14 @@ export const views: ViewRoute[] = [
   {
     // Included on root level to include in navigation menu. Otherwise this
     // could be as a child of the '/owners-fusion' item below.
-    path: '/owners-fusion/find',
+    path: '/owners/find',
     name: 'find-owners',
     component: 'find-owners-view',
     icon: 'la la-search',
     title: 'Find owners',
   },
   {
-    path: '/owners-fusion',
+    path: '/owners',
     name: 'owners-base',
     component: 'span',
     children: [
@@ -82,14 +82,14 @@ export const views: ViewRoute[] = [
     ],
   },
   {
-    path: '/vets-fusion',
+    path: '/vets',
     name: 'vets-list',
     component: 'vets-view',
     icon: 'la la-th-list',
     title: 'Veterinarians',
   },
   {
-    path: '/error-fusion',
+    path: '/error',
     component: 'error-view',
     icon: 'la la-exclamation-triangle',
     title: 'Error',
