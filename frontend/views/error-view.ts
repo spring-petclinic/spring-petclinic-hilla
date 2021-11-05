@@ -19,9 +19,9 @@ export class ErrorView extends View {
       <p>
         For more information see the Fusion
         <a
-          href="https://vaadin.com/docs/latest/fusion/application/error-handling"
-          >Error Handling</a
-        >
+          href="https://vaadin.com/docs/latest/fusion/application/error-handling">
+          Error Handling
+        </a>
         documentation.
       </p>
     `;
