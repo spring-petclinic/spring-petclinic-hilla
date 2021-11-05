@@ -4,7 +4,6 @@ import { View } from '../../views/view';
 import '@vaadin/grid';
 import type { GridBodyRenderer } from '@vaadin/grid';
 import '@vaadin/grid/vaadin-grid-column';
-import '@vaadin/grid/vaadin-grid-sort-column';
 import { router } from 'Frontend/index';
 import Owner from 'Frontend/generated/org/springframework/samples/petclinic/owner/Owner';
 import { OwnerEndpoint } from 'Frontend/generated/endpoints';
@@ -24,27 +23,9 @@ interface OwnerGridItem extends Owner {
 @customElement('owners-list-view')
 export class OwnersListView extends View implements BeforeEnterObserver {
   @state()
-  private owners?: Owner[];
-
-  @state()
-  private ownersGridItems: OwnerGridItem[] = [];
+  private owners: Owner[] = [];
 
   private lastNameQuery?: string;
-
-  private nameRenderer: GridBodyRenderer<Owner> = (root, _, model) => {
-    const owner = model.item;
-    render(
-      html`<a href="${this.getOwnerHref(owner)}">
-        ${owner.firstName} ${owner.lastName}
-      </a>`,
-      root
-    );
-  };
-
-  constructor() {
-    super();
-    this.popStateHandler = this.popStateHandler.bind(this);
-  }
 
   // Called by Router
   async onBeforeEnter(
@@ -59,6 +40,10 @@ export class OwnersListView extends View implements BeforeEnterObserver {
     return;
   }
 
+  popStateHandler = (_e: PopStateEvent) => {
+    this.processSearch();
+  };
+
   connectedCallback() {
     super.connectedCallback();
     window.addEventListener('popstate', this.popStateHandler);
@@ -69,20 +54,26 @@ export class OwnersListView extends View implements BeforeEnterObserver {
     window.removeEventListener('popstate', this.popStateHandler);
   }
 
-  popStateHandler(_e: PopStateEvent) {
-    this.processSearch();
-  }
-
   async processSearch(location: RouterLocation = router.location) {
     const searchParams = new URLSearchParams(location.search);
     this.lastNameQuery = searchParams.get('lastName') || '';
     this.owners = await OwnerEndpoint.findByLastName(this.lastNameQuery);
-    this.ownersGridItems = this.owners.map((owner) => ({
-      ...owner,
-      fullNameForSorting: `${owner.lastName} ${owner.firstName}`,
-      petsString: owner.pets.map((pet) => pet.name).join(', '),
-    }));
   }
+
+  private nameRenderer: GridBodyRenderer<Owner> = (root, _, model) => {
+    const owner = model.item;
+    render(
+      html`<a href="${this.getOwnerHref(owner)}">
+        ${owner.firstName} ${owner.lastName}
+      </a>`,
+      root
+    );
+  };
+
+  private petRenderer: GridBodyRenderer<Owner> = (root, _, model) => {
+    const owner = model.item;
+    render(html`${owner.pets.flatMap((p) => p.name).join(', ')}`, root);
+  };
 
   render() {
     if (!this.owners) {
@@ -97,7 +88,7 @@ export class OwnersListView extends View implements BeforeEnterObserver {
   renderNotFound() {
     return html`
       <find-owners-view
-        last-name="${this.lastNameQuery}"
+        .last-name=${this.lastNameQuery}
         hint-text="has not been found"></find-owners-view>
     `;
   }
@@ -106,20 +97,17 @@ export class OwnersListView extends View implements BeforeEnterObserver {
     return html`
       <h2>Owners</h2>
 
-      <vaadin-grid
-        .items="${this.ownersGridItems}"
-        theme="row-stripes"
-        all-rows-visible>
-        <vaadin-grid-sort-column
+      <vaadin-grid .items=${this.owners} theme="row-stripes" all-rows-visible>
+        <vaadin-grid-column
           header="Name"
           path="fullNameForSorting"
-          .renderer="${this.nameRenderer}"></vaadin-grid-sort-column>
+          .renderer=${this.nameRenderer}></vaadin-grid-column>
         <vaadin-grid-column path="address"></vaadin-grid-column>
-        <vaadin-grid-sort-column path="city"></vaadin-grid-sort-column>
+        <vaadin-grid-column path="city"></vaadin-grid-column>
         <vaadin-grid-column path="telephone"></vaadin-grid-column>
         <vaadin-grid-column
           header="Pets"
-          path="petsString"></vaadin-grid-column>
+          .renderer=${this.petRenderer}></vaadin-grid-column>
       </vaadin-grid>
     `;
   }

@@ -22,7 +22,6 @@ import PetDTO from 'Frontend/generated/org/springframework/samples/petclinic/dto
 import PetDTOModel from 'Frontend/generated/org/springframework/samples/petclinic/dto/PetDTOModel';
 import { EndpointError } from '@vaadin/fusion-frontend';
 import PetType from 'Frontend/generated/org/springframework/samples/petclinic/owner/PetType';
-import { configureDatePickerDirective } from 'Frontend/utils';
 
 @customElement('create-or-update-pet-view')
 export class CreateOrUpdatePetView extends View {
@@ -111,46 +110,40 @@ export class CreateOrUpdatePetView extends View {
   }
 
   render() {
-    const model = this.binder.model;
+    const { model } = this.binder;
     const submitButtonText = !this.pet ? 'Add Pet' : 'Update Pet';
     return html`
       <h2>Pet</h2>
 
-      <vaadin-form-layout>
-        <vaadin-form-item colspan="2">
-          <span slot="label">Owner</span>
-          ${this.owner?.firstName} ${this.owner?.lastName}
-        </vaadin-form-item>
-        <vaadin-form-item>
-          <label slot="label">Name</label>
-          <vaadin-text-field ${field(model.name)}></vaadin-text-field>
-        </vaadin-form-item>
-        <vaadin-form-item>
-          <label slot="label">Birth Date</label>
-          <vaadin-date-picker
-            ${configureDatePickerDirective()}
-            ${field(model.birthDate)}
-            .max="${this.today}"></vaadin-date-picker>
-        </vaadin-form-item>
-        <vaadin-form-item>
-          <label slot="label">Type</label>
-          <vaadin-select
-            ${ref(this.selectRef)}
-            ${field(model.typeId)}
-            ${selectRenderer(
-              () => html`
-                <vaadin-list-box>
-                  ${this.petTypes?.map(
-                    ({ id, name }) =>
-                      html`<vaadin-item .value="${id}">${name}</vaadin-item>`
-                  )}
-                </vaadin-list-box>
-              `
-            )}></vaadin-select>
-        </vaadin-form-item>
-      </vaadin-form-layout>
-      <vaadin-button @click="${this.submit}">${submitButtonText}</vaadin-button
-      ><br />
+      <div class="flex flex-col items-start">
+        <vaadin-text-field
+          label="Owner"
+          .value=${`${this.owner?.firstName} ${this.owner?.lastName}`}
+          readonly></vaadin-text-field>
+
+        <vaadin-text-field
+          label="Name"
+          ${field(model.name)}></vaadin-text-field>
+        <vaadin-date-picker
+          label="Birth Date"
+          ${field(model.birthDate)}
+          .max=${this.today}></vaadin-date-picker>
+        <vaadin-select
+          label="Type"
+          ${ref(this.selectRef)}
+          ${field(model.typeId)}
+          ${selectRenderer(
+            () => html`
+              <vaadin-list-box>
+                ${this.petTypes?.map(
+                  ({ id, name }) =>
+                    html`<vaadin-item .value=${id}>${name}</vaadin-item>`
+                )}
+              </vaadin-list-box>
+            `
+          )}></vaadin-select>
+        <vaadin-button @click=${this.submit}>${submitButtonText}</vaadin-button>
+      </div>
       ${this.error !== undefined
         ? html`<p class="error">${this.error}</p>`
         : nothing}

@@ -15,7 +15,6 @@ import Pet from 'Frontend/generated/org/springframework/samples/petclinic/owner/
 import { Binder } from '@vaadin/form';
 import OwnerModel from 'Frontend/generated/org/springframework/samples/petclinic/owner/OwnerModel';
 import { renderOwnerForm } from 'Frontend/views/owners/render-blocks';
-import { configureDatePickerDirective } from 'Frontend/utils';
 
 @customElement('owner-details-view')
 export class OwnerDetailsView extends View {
@@ -35,7 +34,7 @@ export class OwnerDetailsView extends View {
     this.owner = await OwnerEndpoint.findById(id);
     if (!this.owner) return;
     // Fetch visits for pets
-    if (this.owner?.pets) {
+    if (this.owner.pets) {
       let pets: Pet[] = [];
       for (const pet of this.owner.pets) {
         const visits = await VisitEndpoint.findByPetId(pet.id);
@@ -100,40 +99,29 @@ export class OwnerDetailsView extends View {
         ${owner?.pets.map(
           (pet) => html`
             <div class="flex p-m gap-l">
-              <vaadin-form-layout
-                .responsiveSteps="${[{ minWidth: 0, columns: 1 }]}">
-                <vaadin-form-item>
-                  <label slot="label">Name</label>
-                  <vaadin-text-field
-                    readonly
-                    value="${pet.name}"
-                    class="w-full"></vaadin-text-field>
-                </vaadin-form-item>
-                <vaadin-form-item>
-                  <label slot="label">Birth Date</label>
-                  <vaadin-date-picker
-                    class="w-full"
-                    ${configureDatePickerDirective()}
-                    value="${pet.birthDate}"
-                    readonly></vaadin-date-picker>
-                </vaadin-form-item>
-                <vaadin-form-item>
-                  <label slot="label">Type</label>
-                  <vaadin-text-field
-                    readonly
-                    value="${pet.type?.name}"
-                    class="w-full"></vaadin-text-field>
-                </vaadin-form-item>
-              </vaadin-form-layout>
+              <div class="flex flex-col">
+                <vaadin-text-field
+                  readonly
+                  label="Name"
+                  .value=${pet.name}></vaadin-text-field>
+                <vaadin-date-picker
+                  label="Birth Date"
+                  value=${pet.birthDate}
+                  readonly></vaadin-date-picker>
+                <vaadin-text-field
+                  readonly
+                  label="Type"
+                  .value=${pet.type?.name}></vaadin-text-field>
+              </div>
 
               <div class="w-full flex flex-col gap-m">
                 <vaadin-grid
-                  .items="${pet.visits}"
+                  .items=${pet.visits}
                   theme="compact"
                   all-rows-visible>
-                  <vaadin-grid-sort-column
+                  <vaadin-grid-column
                     header="Visit Date"
-                    path="date"></vaadin-grid-sort-column>
+                    path="date"></vaadin-grid-column>
                   <vaadin-grid-column path="description"></vaadin-grid-column>
                 </vaadin-grid>
                 <div class="flex gap-m">

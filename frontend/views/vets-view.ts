@@ -39,13 +39,13 @@ export class VetsView extends View {
     return html`
       <h2>Veterinarians</h2>
 
-      <vaadin-grid .items="${this.vets}" theme="row-stripes" all-rows-visible>
-        <vaadin-grid-sort-column
+      <vaadin-grid .items=${this.vets} theme="row-stripes" all-rows-visible>
+        <vaadin-grid-column
           header="Name"
-          .renderer="${this.nameRenderer}"></vaadin-grid-sort-column>
+          .renderer=${this.nameRenderer}></vaadin-grid-column>
         <vaadin-grid-column
           header="Specialties"
-          .renderer="${this.specialtiesRenderer}"></vaadin-grid-column>
+          .renderer=${this.specialtiesRenderer}></vaadin-grid-column>
       </vaadin-grid>
     `;
   }

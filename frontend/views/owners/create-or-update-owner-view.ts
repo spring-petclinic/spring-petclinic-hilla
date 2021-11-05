@@ -54,7 +54,7 @@ export class CreateOrUpdateOwnerView extends View {
 
       <form>
         ${renderOwnerForm(model)}
-        <vaadin-button @click="${this.submit}">
+        <vaadin-button @click=${this.submit}>
           ${submitButtonText}
         </vaadin-button>
         <br />
