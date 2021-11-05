@@ -15,10 +15,6 @@ export class MainLayout extends Layout {
       <vaadin-app-layout>
         <header class="bg-base border-b border-contrast-10 box-border flex flex-col w-full" slot="navbar">
           <nav class="flex gap-s overflow-auto px-m">
-            <a href="/" router-ignore class="flex mx-s p-s relative text-secondary">
-              <span class="la la-home me-s text-l"></span>
-              <span class="font-medium text-s">Original Home</span>
-            </a>
             ${this.getMenuRoutes().map(
       (viewRoute) => html`
                 <a
@@ -54,7 +50,12 @@ export class MainLayout extends Layout {
   }
 
   highlightNav(routePath: string) {
-    if (appStore.location.startsWith(routePath)) {
+    // Highlight route '/'
+    if (routePath === '/' && appStore.location === routePath) {
+      return true;
+    }
+    // Generic highlight for most routes
+    if (routePath !== '/' && appStore.location.startsWith(routePath)) {
       return true;
     }
     // Highlight "Find owners" if this is any view under the owners-base route

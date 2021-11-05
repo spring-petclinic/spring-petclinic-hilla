@@ -20,12 +20,6 @@ export const views: ViewRoute[] = [
   // place routes below (more info https://vaadin.com/docs/latest/fusion/routing/overview)
   {
     path: '/',
-    component: 'home-view',
-    icon: '',
-    title: '',
-  },
-  {
-    path: '/home-fusion',
     name: 'home',
     component: 'home-view',
     icon: 'la la-home',
