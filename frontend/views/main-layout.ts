@@ -16,21 +16,31 @@ export class MainLayout extends Layout {
         <header
           class="bg-base border-b border-contrast-10 box-border flex flex-col w-full"
           slot="navbar">
-          <nav class="flex gap-s overflow-auto px-m">
-            ${this.getMenuRoutes().map(
-              (viewRoute) => html`
-                <a
-                  ?highlight=${this.highlightNav(viewRoute.path)}
-                  class="flex 
+          <nav
+            class="flex gap-s px-m py-l items-center justify-between"
+            theme="dark">
+            <img
+              src="/resources/images/spring-logo-dataflow-mobile.png"
+              alt="Spring"
+              class="" />
+
+            <div class="flex gap-s">
+              ${this.getMenuRoutes().map(
+                (viewRoute) => html`
+                  <a
+                    ?highlight=${this.highlightNav(viewRoute.path)}
+                    class="flex 
                   h-m items-center px-s relative text-secondary"
-                  href=${router.urlForPath(viewRoute.path)}>
-                  <span class="${viewRoute.icon} me-s text-l"></span>
-                  <span class="font-medium text-s whitespace-nowrap">
-                    ${viewRoute.title}
-                  </span>
-                </a>
-              `
-            )}
+                    href=${router.urlForPath(viewRoute.path)}>
+                    <span class="${viewRoute.icon} me-s text-l"></span>
+                    <span
+                      class="font-medium text-s whitespace-nowrap uppercase">
+                      ${viewRoute.title}
+                    </span>
+                  </a>
+                `
+              )}
+            </div>
           </nav>
         </header>
         <div class="px-m">

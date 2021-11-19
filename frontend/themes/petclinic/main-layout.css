@@ -1,5 +1,5 @@
 [slot='navbar'] {
-  background-image: linear-gradient(0deg, var(--lumo-shade-5pct), var(--lumo-shade-5pct));
+  /* background-image: linear-gradient(0deg, var(--lumo-shade-5pct), var(--lumo-shade-5pct)); */
 }
 
 [slot='navbar'] nav a {

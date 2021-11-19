@@ -89,7 +89,7 @@ export const views: ViewRoute[] = [
     title: 'Veterinarians',
   },
   {
-    path: '/error',
+    path: '/oups',
     component: 'error-view',
     icon: 'la la-exclamation-triangle',
     title: 'Error',
