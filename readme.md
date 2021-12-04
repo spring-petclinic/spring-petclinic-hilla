@@ -1,5 +1,8 @@
 # Vaadin Fusion implementation of 🦌 Spring PetClinic 🦌
 
+[![Build Status](https://github.com/spring-petclinic/spring-petclinic-vaadin-fusion/actions/workflows/maven-build.yml/badge.svg)](https://github.com/spring-petclinic/spring-petclinic-vaadin-fusion/actions/workflows/maven-build.yml)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
 This is a Vaadin Fusion implementation of the Spring PetClinic sample project: https://github.com/spring-projects/spring-petclinic
 
 [Vaadin Fusion](https://vaadin.com/fusion) is a full-stack web framework built specifically for Spring Boot backends. It includes:
