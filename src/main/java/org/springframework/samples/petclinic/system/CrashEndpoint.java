@@ -1,7 +1,7 @@
 package org.springframework.samples.petclinic.system;
 
 import com.vaadin.flow.server.auth.AnonymousAllowed;
-import com.vaadin.fusion.Endpoint;
+import dev.hilla.Endpoint;
 
 @Endpoint
 @AnonymousAllowed

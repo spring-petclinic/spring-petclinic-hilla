@@ -6,8 +6,8 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.BaseEntity;
 
 import com.vaadin.flow.server.auth.AnonymousAllowed;
-import com.vaadin.fusion.Endpoint;
-import com.vaadin.fusion.Nonnull;
+import dev.hilla.Endpoint;
+import dev.hilla.Nonnull;
 
 @Endpoint
 @AnonymousAllowed

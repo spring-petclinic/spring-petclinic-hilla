@@ -17,9 +17,9 @@ export class ErrorView extends View {
     return html`
       <p>See JS console for errors.</p>
       <p>
-        For more information see the Fusion
+        For more information see the Hilla
         <a
-          href="https://vaadin.com/docs/latest/fusion/application/error-handling">
+          href="https://hilla.dev/docs/application/error-handling">
           Error Handling
         </a>
         documentation.

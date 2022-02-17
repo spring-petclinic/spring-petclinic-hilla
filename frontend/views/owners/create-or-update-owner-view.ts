@@ -1,6 +1,6 @@
 import { html, nothing } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { Binder, ValidationError } from '@vaadin/form';
+import { Binder, ValidationError } from '@hilla/form';
 import { Router } from '@vaadin/router';
 import '@vaadin/button';
 import '@vaadin/form-layout';
@@ -10,7 +10,7 @@ import { router } from 'Frontend/index';
 import { OwnerEndpoint } from 'Frontend/generated/endpoints';
 import Owner from 'Frontend/generated/org/springframework/samples/petclinic/owner/Owner';
 import OwnerModel from 'Frontend/generated/org/springframework/samples/petclinic/owner/OwnerModel';
-import { EndpointError } from '@vaadin/fusion-frontend';
+import { EndpointError } from '@hilla/frontend';
 import { renderOwnerForm } from 'Frontend/views/owners/render-blocks';
 
 @customElement('create-or-update-owner-view')

@@ -33,7 +33,7 @@ import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.samples.petclinic.model.Person;
 
-import com.vaadin.fusion.Nonnull;
+import dev.hilla.Nonnull;
 
 /**
  * Simple JavaBean domain object representing a veterinarian.

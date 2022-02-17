@@ -12,7 +12,7 @@ import { router } from 'Frontend/index';
 import { OwnerEndpoint, VisitEndpoint } from 'Frontend/generated/endpoints';
 import Owner from 'Frontend/generated/org/springframework/samples/petclinic/owner/Owner';
 import Pet from 'Frontend/generated/org/springframework/samples/petclinic/owner/Pet';
-import { Binder } from '@vaadin/form';
+import { Binder } from '@hilla/form';
 import OwnerModel from 'Frontend/generated/org/springframework/samples/petclinic/owner/OwnerModel';
 import { renderOwnerForm } from 'Frontend/views/owners/render-blocks';
 
