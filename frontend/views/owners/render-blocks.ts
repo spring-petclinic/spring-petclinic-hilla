@@ -1,5 +1,5 @@
 import { html } from 'lit';
-import { field } from '@vaadin/form';
+import { field } from '@hilla/form';
 import '@vaadin/form-layout';
 import '@vaadin/text-field';
 import OwnerModel from 'Frontend/generated/org/springframework/samples/petclinic/owner/OwnerModel';

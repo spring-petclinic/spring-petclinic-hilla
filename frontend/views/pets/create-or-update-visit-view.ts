@@ -1,6 +1,6 @@
 import { html } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { Binder, field, ValidationError } from '@vaadin/form';
+import { Binder, field, ValidationError } from '@hilla/form';
 import { Router } from '@vaadin/router';
 import { formatISO } from 'date-fns';
 import '@vaadin/button';
@@ -14,7 +14,7 @@ import { View } from '../../views/view';
 import { router } from 'Frontend/index';
 import { PetEndpoint, VisitEndpoint } from 'Frontend/generated/endpoints';
 import PetDTO from 'Frontend/generated/org/springframework/samples/petclinic/dto/PetDTO';
-import { EndpointError } from '@vaadin/fusion-frontend';
+import { EndpointError } from '@hilla/frontend';
 import VisitModel from 'Frontend/generated/org/springframework/samples/petclinic/visit/VisitModel';
 import Visit from 'Frontend/generated/org/springframework/samples/petclinic/visit/Visit';
 

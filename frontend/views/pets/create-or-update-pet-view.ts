@@ -1,7 +1,7 @@
 import { html, nothing, PropertyValues } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { createRef, ref, Ref } from 'lit/directives/ref';
-import { Binder, field, ValidationError } from '@vaadin/form';
+import { Binder, field, ValidationError } from '@hilla/form';
 import { Router } from '@vaadin/router';
 import { selectRenderer } from 'lit-vaadin-helpers';
 import { formatISO } from 'date-fns';
@@ -20,7 +20,7 @@ import { OwnerEndpoint, PetEndpoint } from 'Frontend/generated/endpoints';
 import Owner from 'Frontend/generated/org/springframework/samples/petclinic/owner/Owner';
 import PetDTO from 'Frontend/generated/org/springframework/samples/petclinic/dto/PetDTO';
 import PetDTOModel from 'Frontend/generated/org/springframework/samples/petclinic/dto/PetDTOModel';
-import { EndpointError } from '@vaadin/fusion-frontend';
+import { EndpointError } from '@hilla/frontend';
 import PetType from 'Frontend/generated/org/springframework/samples/petclinic/owner/PetType';
 
 @customElement('create-or-update-pet-view')

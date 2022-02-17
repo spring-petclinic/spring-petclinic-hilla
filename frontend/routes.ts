@@ -17,7 +17,7 @@ export type ViewRoute = Route & {
 };
 
 export const views: ViewRoute[] = [
-  // place routes below (more info https://vaadin.com/docs/latest/fusion/routing/overview)
+  // place routes below (more info https://hilla.dev/docs/routing/defining)
   {
     path: '/',
     name: 'home',
@@ -26,8 +26,7 @@ export const views: ViewRoute[] = [
     title: 'Home',
   },
   {
-    // Included on root level to include in navigation menu. Otherwise this
-    // could be as a child of the '/owners-fusion' item below.
+    // Included on root level to include in navigation menu.
     path: '/owners/find',
     name: 'find-owners',
     component: 'find-owners-view',

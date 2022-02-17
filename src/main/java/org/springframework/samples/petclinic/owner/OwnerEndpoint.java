@@ -3,8 +3,8 @@ package org.springframework.samples.petclinic.owner;
 import java.util.Collection;
 
 import com.vaadin.flow.server.auth.AnonymousAllowed;
-import com.vaadin.fusion.Endpoint;
-import com.vaadin.fusion.Nonnull;
+import dev.hilla.Endpoint;
+import dev.hilla.Nonnull;
 
 @Endpoint
 @AnonymousAllowed

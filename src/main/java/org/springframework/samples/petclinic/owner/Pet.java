@@ -39,7 +39,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.samples.petclinic.model.NamedEntity;
 import org.springframework.samples.petclinic.visit.Visit;
 
-import com.vaadin.fusion.Nonnull;
+import dev.hilla.Nonnull;
 
 /**
  * Simple business object representing a pet.
