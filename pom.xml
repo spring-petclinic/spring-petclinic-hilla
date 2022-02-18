@@ -19,7 +19,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-    <hilla.version>1.0.0.beta2</hilla.version>
+    <hilla.version>1.0.0.beta3</hilla.version>
     <jacoco.version>0.8.5</jacoco.version>
     <nohttp-checkstyle.version>0.0.4.RELEASE</nohttp-checkstyle.version>
     <spring-format.version>0.0.25</spring-format.version>
