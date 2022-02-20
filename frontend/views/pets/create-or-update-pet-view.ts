@@ -1,6 +1,6 @@
 import { html, nothing, PropertyValues } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { createRef, ref, Ref } from 'lit/directives/ref';
+import { createRef, ref, Ref } from 'lit/directives/ref.js';
 import { Binder, field, ValidationError } from '@hilla/form';
 import { BeforeEnterObserver, Router, RouterLocation } from '@vaadin/router';
 import { selectRenderer } from 'lit-vaadin-helpers';

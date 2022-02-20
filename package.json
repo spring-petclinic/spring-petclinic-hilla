@@ -131,26 +131,15 @@
     "@vaadin/build-status-plugin": "./target/plugins/build-status-plugin",
     "@vaadin/theme-live-reload-plugin": "./target/plugins/theme-live-reload-plugin",
     "@vaadin/theme-loader": "./target/plugins/theme-loader",
-    "chokidar": "^3.5.0",
-    "compression-webpack-plugin": "4.0.1",
-    "css-loader": "5.2.7",
-    "esbuild-loader": "2.15.1",
-    "extra-watch-webpack-plugin": "1.0.3",
-    "extract-loader": "5.1.0",
-    "file-loader": "6.2.0",
-    "fork-ts-checker-webpack-plugin": "6.2.1",
     "glob": "7.1.6",
-    "html-webpack-plugin": "4.5.1",
-    "lit-css-loader": "0.1.0",
-    "loader-utils": "2.0.0",
+    "mkdirp": "1.0.4",
+    "rollup-plugin-brotli": "3.1.0",
     "typescript": "4.5.3",
-    "webpack": "4.46.0",
-    "webpack-cli": "4.9.2",
-    "webpack-dev-server": "4.7.3",
-    "webpack-merge": "4.2.2",
+    "vite": "v2.8.0",
+    "vite-plugin-checker": "0.3.4",
+    "workbox-build": "6.4.2",
     "workbox-core": "6.4.2",
-    "workbox-precaching": "6.4.2",
-    "workbox-webpack-plugin": "6.4.2"
+    "workbox-precaching": "6.4.2"
   },
   "vaadin": {
     "dependencies": {
@@ -273,28 +262,17 @@
       "lit": "2.0.0"
     },
     "devDependencies": {
-      "chokidar": "^3.5.0",
-      "compression-webpack-plugin": "4.0.1",
-      "css-loader": "5.2.7",
-      "esbuild-loader": "2.15.1",
-      "extra-watch-webpack-plugin": "1.0.3",
-      "extract-loader": "5.1.0",
-      "file-loader": "6.2.0",
-      "fork-ts-checker-webpack-plugin": "6.2.1",
       "glob": "7.1.6",
-      "html-webpack-plugin": "4.5.1",
-      "lit-css-loader": "0.1.0",
-      "loader-utils": "2.0.0",
+      "mkdirp": "1.0.4",
+      "rollup-plugin-brotli": "3.1.0",
       "typescript": "4.5.3",
-      "webpack": "4.46.0",
-      "webpack-cli": "4.9.2",
-      "webpack-dev-server": "4.7.3",
-      "webpack-merge": "4.2.2",
+      "vite": "v2.8.0",
+      "vite-plugin-checker": "0.3.4",
+      "workbox-build": "6.4.2",
       "workbox-core": "6.4.2",
-      "workbox-precaching": "6.4.2",
-      "workbox-webpack-plugin": "6.4.2"
+      "workbox-precaching": "6.4.2"
     },
-    "hash": "8b30dbc7e5c6b33a297272fdf6b3db5d08f5d4eb469fc689265f983c59264d02"
+    "hash": "22d6b260134897cd2ee839274bec7eadde3ea63a8260a67e43ba0db7686037e7"
   },
   "overrides": {
     "@vaadin/accordion": "$@vaadin/accordion",
