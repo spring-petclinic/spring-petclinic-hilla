@@ -4,7 +4,6 @@ import './views/home-view';
 import './views/main-layout';
 import './views/owners/create-or-update-owner-view';
 import './views/owners/find-owners-view';
-import './views/owners/owners-list-view';
 import './views/owners/owner-details-view';
 import './views/pets/create-or-update-pet-view';
 import './views/pets/create-or-update-visit-view';
@@ -40,8 +39,7 @@ export const views: ViewRoute[] = [
     children: [
       {
         path: '/',
-        name: 'owners-list',
-        component: 'owners-list-view',
+        component: 'find-owners-view',
       },
       {
         path: '/new',
