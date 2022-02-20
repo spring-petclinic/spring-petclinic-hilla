@@ -1,4 +1,4 @@
-import { html, nothing, render } from 'lit';
+import { html, nothing, PropertyValueMap, render } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import '@vaadin/button';
 import '@vaadin/icons';
@@ -17,7 +17,10 @@ import { GridBodyRenderer } from '@vaadin/grid';
 export class FindOwnersView extends View {
   @state() lastName = '';
   @state() owners: Owner[] = [];
-  @state() searchPerformed = false;
+
+  async firstUpdated() {
+    this.owners = await OwnerEndpoint.findByLastName('');
+  }
 
   render() {
     return html`
@@ -30,9 +33,7 @@ export class FindOwnersView extends View {
             .value=${this.lastName}
             @change=${this.lastNameChanged}
             @keyup=${this.textFieldKeyUp}
-            helper-text=${this.searchPerformed && this.owners.length === 0
-              ? 'Owner was not found'
-              : ''}
+            helper-text=${this.owners.length === 0 ? 'Owner was not found' : ''}
             clear-button-visible>
             <vaadin-icon slot="prefix" icon="vaadin:search"></vaadin-icon>
           </vaadin-text-field>
