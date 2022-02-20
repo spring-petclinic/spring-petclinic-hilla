@@ -1,7 +1,7 @@
 import { html } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { Binder, field, ValidationError } from '@hilla/form';
-import { Router } from '@vaadin/router';
+import { BeforeEnterObserver, Router, RouterLocation } from '@vaadin/router';
 import { formatISO } from 'date-fns';
 import '@vaadin/button';
 import '@vaadin/date-picker';
@@ -11,7 +11,6 @@ import '@vaadin/grid';
 import '@vaadin/grid/vaadin-grid-column';
 import '@vaadin/grid/vaadin-grid-sort-column';
 import { View } from '../../views/view';
-import { router } from 'Frontend/index';
 import { PetEndpoint, VisitEndpoint } from 'Frontend/generated/endpoints';
 import PetDTO from 'Frontend/generated/org/springframework/samples/petclinic/dto/PetDTO';
 import { EndpointError } from '@hilla/frontend';
@@ -19,30 +18,24 @@ import VisitModel from 'Frontend/generated/org/springframework/samples/petclinic
 import Visit from 'Frontend/generated/org/springframework/samples/petclinic/visit/Visit';
 
 @customElement('create-or-update-visit-view')
-export class CreateOrUpdateVisitView extends View {
-  @state()
-  private pet?: PetDTO;
-
-  @state()
-  private visits?: Visit[];
-
-  @state()
-  private error?: string;
-
-  @state()
-  private today = formatISO(Date.now(), { representation: 'date' });
+export class CreateOrUpdateVisitView
+  extends View
+  implements BeforeEnterObserver
+{
+  @state() pet?: PetDTO;
+  @state() visits: Visit[] = [];
+  @state() error = '';
+  @state() today = formatISO(Date.now(), { representation: 'date' });
 
   private binder = new Binder(this, VisitModel);
 
-  connectedCallback() {
-    super.connectedCallback();
-    const petId = parseInt(router.location.params.petId as string);
+  onBeforeEnter(location: RouterLocation) {
+    const petId = parseInt(location.params.petId as string);
     this.fetchPet(petId);
     this.fetchVisits(petId);
   }
 
   async fetchPet(id: number) {
-    this.pet = undefined;
     try {
       this.pet = await PetEndpoint.findById(id);
     } finally {
@@ -53,7 +46,6 @@ export class CreateOrUpdateVisitView extends View {
   }
 
   async fetchVisits(petId: number) {
-    this.visits = undefined;
     try {
       this.visits = await VisitEndpoint.findByPetId(petId);
     } finally {
@@ -69,7 +61,7 @@ export class CreateOrUpdateVisitView extends View {
   }
 
   render() {
-    const model = this.binder.model;
+    const { model } = this.binder;
     return html`
       <h2>New Visit</h2>
 
@@ -117,14 +109,13 @@ export class CreateOrUpdateVisitView extends View {
     `;
   }
 
-  private saveVisit = (visit: Visit | undefined) =>
-    VisitEndpoint.save(visit, this.pet?.id);
-
   async submit() {
-    this.error = undefined;
-    let visitId: number;
+    this.error = '';
+
     try {
-      visitId = await this.binder.submitTo(this.saveVisit);
+      await this.binder.submitTo((visit) =>
+        VisitEndpoint.save(visit, this.pet?.id)
+      );
     } catch (e) {
       if (e instanceof EndpointError) {
         this.error = 'Saving visit failed due to server error';
@@ -137,9 +128,7 @@ export class CreateOrUpdateVisitView extends View {
       console.error(e);
       return;
     }
-    const targetUrl = router.urlForName('owner-details', {
-      ownerId: this.pet!.ownerId!.toString(),
-    });
-    Router.go(targetUrl);
+
+    Router.go(`/owners/${this.pet?.ownerId}`);
   }
 }

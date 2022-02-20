@@ -13,7 +13,7 @@ import Owner from 'Frontend/generated/org/springframework/samples/petclinic/owne
 import Pet from 'Frontend/generated/org/springframework/samples/petclinic/owner/Pet';
 import { Binder } from '@hilla/form';
 import OwnerModel from 'Frontend/generated/org/springframework/samples/petclinic/owner/OwnerModel';
-import { ownerForm } from 'Frontend/views/owners/render-blocks';
+import { ownerForm } from 'Frontend/views/owners/blocks';
 import { BeforeEnterObserver, RouterLocation } from '@vaadin/router';
 
 @customElement('owner-details-view')

@@ -2,7 +2,7 @@ import { html, nothing, PropertyValues } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { createRef, ref, Ref } from 'lit/directives/ref';
 import { Binder, field, ValidationError } from '@hilla/form';
-import { Router } from '@vaadin/router';
+import { BeforeEnterObserver, Router, RouterLocation } from '@vaadin/router';
 import { selectRenderer } from 'lit-vaadin-helpers';
 import { formatISO } from 'date-fns';
 import '@vaadin/button';
@@ -12,10 +12,9 @@ import '@vaadin/form-layout/vaadin-form-item';
 import '@vaadin/item';
 import '@vaadin/list-box';
 import '@vaadin/select';
-import type { Select } from '@vaadin/select';
+import type { Select, SelectItem } from '@vaadin/select';
 import '@vaadin/text-field';
 import { View } from '../../views/view';
-import { router } from 'Frontend/index';
 import { OwnerEndpoint, PetEndpoint } from 'Frontend/generated/endpoints';
 import Owner from 'Frontend/generated/org/springframework/samples/petclinic/owner/Owner';
 import PetDTO from 'Frontend/generated/org/springframework/samples/petclinic/dto/PetDTO';
@@ -24,39 +23,27 @@ import { EndpointError } from '@hilla/frontend';
 import PetType from 'Frontend/generated/org/springframework/samples/petclinic/owner/PetType';
 
 @customElement('create-or-update-pet-view')
-export class CreateOrUpdatePetView extends View {
-  @state()
-  private owner?: Owner;
-
-  @state()
-  private pet?: PetDTO;
-
-  @state()
-  private petTypes?: PetType[];
-
-  @state()
-  private error?: string;
-
-  @state()
-  private today = formatISO(Date.now(), { representation: 'date' });
+export class CreateOrUpdatePetView extends View implements BeforeEnterObserver {
+  @state() owner?: Owner;
+  @state() pet?: PetDTO;
+  @state() petTypes: SelectItem[] = [];
+  @state() error = '';
+  @state() today = formatISO(Date.now(), { representation: 'date' });
 
   private binder = new Binder(this, PetDTOModel);
-
   private selectRef: Ref<Select> = createRef();
 
-  connectedCallback() {
-    super.connectedCallback();
-    const ownerId = parseInt(router.location.params.ownerId as string);
-    this.fetchOwner(ownerId);
+  onBeforeEnter(location: RouterLocation) {
+    const id = parseInt(location.params.ownerId as string);
+    this.fetchOwner(id);
     this.fetchPetTypes();
-    if (router.location.route?.name === 'edit-pet') {
-      const petId = parseInt(router.location.params.petId as string);
+    if (location.route?.name === 'edit-pet') {
+      const petId = parseInt(location.params.petId as string);
       this.fetchPet(petId);
     }
   }
 
   async fetchOwner(id: number) {
-    this.owner = undefined;
     try {
       this.owner = await OwnerEndpoint.findById(id);
       if (this.owner?.id) {
@@ -70,16 +57,13 @@ export class CreateOrUpdatePetView extends View {
   }
 
   async fetchPetTypes() {
-    this.petTypes = undefined;
     try {
-      this.petTypes = await PetEndpoint.findPetTypes();
-      // Preselect first pet type when not editing an existing pet
-      if (!this.pet) {
-        this.binder.value = {
-          ...this.binder.value,
-          typeId: this.petTypes[0].id!,
-        };
-      }
+      const types = await PetEndpoint.findPetTypes();
+      // Convert to SelectItem for <vaadin-select>
+      this.petTypes = types.map((type) => ({
+        label: type.name + '',
+        value: type.id + '',
+      }));
     } finally {
       if (!this.petTypes) {
         this.error = `Error fetching pet types`;
@@ -88,8 +72,6 @@ export class CreateOrUpdatePetView extends View {
   }
 
   async fetchPet(id: number) {
-    this.owner = undefined;
-    this.pet = undefined;
     this.binder.clear();
     try {
       this.pet = await PetEndpoint.findById(id);
@@ -99,13 +81,6 @@ export class CreateOrUpdatePetView extends View {
       } else {
         this.error = `No pet found with id ${id}`;
       }
-    }
-  }
-
-  async updated(changedProperties: PropertyValues) {
-    if (changedProperties.has('petTypes')) {
-      // Need to manually trigger the select renderer whenever the item set changes dynamically
-      this.selectRef.value?.requestContentUpdate();
     }
   }
 
@@ -130,28 +105,16 @@ export class CreateOrUpdatePetView extends View {
           .max=${this.today}></vaadin-date-picker>
         <vaadin-select
           label="Type"
+          .items=${this.petTypes}
           ${ref(this.selectRef)}
-          ${field(model.typeId)}
-          ${selectRenderer(
-            () => html`
-              <vaadin-list-box>
-                ${this.petTypes?.map(
-                  ({ id, name }) =>
-                    html`<vaadin-item .value=${id}>${name}</vaadin-item>`
-                )}
-              </vaadin-list-box>
-            `
-          )}></vaadin-select>
+          ${field(model.typeId)}></vaadin-select>
         <vaadin-button @click=${this.submit}>${submitButtonText}</vaadin-button>
       </div>
-      ${this.error !== undefined
-        ? html`<p class="error">${this.error}</p>`
-        : nothing}
+      <p class="error">${this.error}</p>
     `;
   }
 
   async submit() {
-    this.error = undefined;
     let petId: number;
     try {
       petId = await this.binder.submitTo(PetEndpoint.save);
@@ -166,9 +129,7 @@ export class CreateOrUpdatePetView extends View {
       console.error(e);
       return;
     }
-    const targetUrl = router.urlForName('owner-details', {
-      ownerId: this.owner!.id!.toString(),
-    });
-    Router.go(targetUrl);
+
+    Router.go(`/owners/${this.owner?.id}`);
   }
 }

@@ -11,15 +11,12 @@ import { OwnerEndpoint } from 'Frontend/generated/endpoints';
 import Owner from 'Frontend/generated/org/springframework/samples/petclinic/owner/Owner';
 import OwnerModel from 'Frontend/generated/org/springframework/samples/petclinic/owner/OwnerModel';
 import { EndpointError } from '@hilla/frontend';
-import { ownerForm } from 'Frontend/views/owners/render-blocks';
+import { ownerForm } from 'Frontend/views/owners/blocks';
 
 @customElement('create-or-update-owner-view')
 export class CreateOrUpdateOwnerView extends View {
-  @state()
-  private owner?: Owner;
-
-  @state()
-  private error?: string;
+  @state() owner?: Owner;
+  @state() error = '';
 
   private binder = new Binder(this, OwnerModel);
 
@@ -32,8 +29,6 @@ export class CreateOrUpdateOwnerView extends View {
   }
 
   async fetchOwner(id: number) {
-    this.owner = undefined;
-    this.error = undefined;
     this.binder.clear();
     try {
       this.owner = await OwnerEndpoint.findById(id);
@@ -48,26 +43,24 @@ export class CreateOrUpdateOwnerView extends View {
 
   render() {
     const model = this.binder.model;
-    const submitButtonText = !this.owner ? 'Add Owner' : 'Update Owner';
+    const submitButtonText = this.owner ? 'Update Owner' : 'Add Owner';
     return html`
-      <h2>Owner</h2>
+      <div class="flex flex-col gap-m items-start">
+        <h2>Owner</h2>
 
-      <form>
         ${ownerForm(model)}
         <vaadin-button @click=${this.submit}>
           ${submitButtonText}
         </vaadin-button>
-        <br />
-        ${this.error !== undefined
-          ? html`<p class="error">${this.error}</p>`
-          : nothing}
-      </form>
+
+        ${this.error ? html`<p class="error">${this.error}</p>` : nothing}
+      </div>
     `;
   }
 
   async submit() {
-    this.error = undefined;
     let ownerId: number;
+
     try {
       ownerId = await this.binder.submitTo(OwnerEndpoint.save);
     } catch (e) {
@@ -82,9 +75,7 @@ export class CreateOrUpdateOwnerView extends View {
       console.error(e);
       return;
     }
-    const targetUrl = router.urlForName('owner-details', {
-      ownerId: ownerId.toString(),
-    });
-    Router.go(targetUrl);
+
+    Router.go(`/owners/${ownerId}`);
   }
 }
