@@ -29,8 +29,7 @@ export class MainLayout extends Layout {
                 (viewRoute) => html`
                   <a
                     ?highlight=${this.highlightNav(viewRoute.path)}
-                    class="flex 
-                  h-m items-center px-s relative text-secondary"
+                    class="flex h-m items-center px-s relative text-secondary"
                     href=${router.urlForPath(viewRoute.path)}>
                     <span class="${viewRoute.icon} me-s text-l"></span>
                     <span

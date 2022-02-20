@@ -1,4 +1,4 @@
-# HIlla implementation of 🦌 Spring PetClinic 🦌
+# Hilla implementation of Spring PetClinic
 
 [![Build Status](https://github.com/spring-petclinic/spring-petclinic-vaadin-fusion/actions/workflows/maven-build.yml/badge.svg)](https://github.com/spring-petclinic/spring-petclinic-vaadin-fusion/actions/workflows/maven-build.yml)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
@@ -21,7 +21,7 @@ Petclinic is a [Spring Boot](https://spring.io/guides/gs/spring-boot) applicatio
 
 You can then access petclinic here: http://localhost:8080/
 
-<img width="1042" alt="petclinic-screenshot" src="./doc/images/vaadin-petclinic.jpg">
+<img width="1042" alt="petclinic-screenshot" src="./doc/images/hilla-petclinic.jpg">
 
 > NOTE: Windows users should set `git config core.autocrlf true` to avoid format assertions failing the build (use `--global` to set that flag globally).
 
