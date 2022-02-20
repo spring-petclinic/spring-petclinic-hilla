@@ -50,7 +50,10 @@ export class MainLayout extends Layout {
             </main>
 
             <footer class="mt-xl flex gap-m items-center ">
-              <img src="/resources/images/vaadin.png" alt="Built with Vaadin" />
+              <img
+                src="/resources/images/hilla-dark.png"
+                alt="Built with Vaadin"
+                width="200px" />
               <img
                 src="/resources/images/spring-pivotal-logo.png"
                 alt="Sponsored by Pivotal" />
