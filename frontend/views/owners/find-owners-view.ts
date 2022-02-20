@@ -77,7 +77,6 @@ export class FindOwnersView extends View {
   }
 
   async findOwner() {
-    this.searchPerformed = true;
     this.owners = await OwnerEndpoint.findByLastName(this.lastName);
   }
 

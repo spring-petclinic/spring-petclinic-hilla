@@ -7,7 +7,6 @@ import './views/owners/find-owners-view';
 import './views/owners/owner-details-view';
 import './views/pets/create-or-update-pet-view';
 import './views/pets/create-or-update-visit-view';
-import './views/vets-view';
 
 export type ViewRoute = Route & {
   title?: string;
@@ -84,6 +83,10 @@ export const views: ViewRoute[] = [
     component: 'vets-view',
     icon: 'la la-th-list',
     title: 'Veterinarians',
+    // Defer the load of the Vets view until it is accessed
+    action: async () => {
+      await import('./views/vets-view');
+    },
   },
   {
     path: '/oups',
