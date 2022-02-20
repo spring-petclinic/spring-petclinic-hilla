@@ -4,7 +4,7 @@ import '@vaadin/form-layout';
 import '@vaadin/text-field';
 import OwnerModel from 'Frontend/generated/org/springframework/samples/petclinic/owner/OwnerModel';
 
-export function renderOwnerForm(model: OwnerModel, readonly = false) {
+export function ownerForm(model: OwnerModel, readonly = false) {
   return html`
     <div class="flex flex-col items-start">
       <vaadin-text-field

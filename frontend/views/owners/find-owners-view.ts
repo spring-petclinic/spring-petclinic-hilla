@@ -12,10 +12,10 @@ import { Router } from '@vaadin/router';
 @customElement('find-owners-view')
 export class FindOwnersView extends View {
   @property({ type: String, attribute: 'last-name' })
-  lastName: string = '';
+  lastName = '';
 
   @property({ type: String, attribute: 'hint-text' })
-  hintText: string = '';
+  hintText = '';
 
   render() {
     return html`

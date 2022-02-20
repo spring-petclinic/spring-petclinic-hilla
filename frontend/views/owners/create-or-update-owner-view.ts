@@ -11,7 +11,7 @@ import { OwnerEndpoint } from 'Frontend/generated/endpoints';
 import Owner from 'Frontend/generated/org/springframework/samples/petclinic/owner/Owner';
 import OwnerModel from 'Frontend/generated/org/springframework/samples/petclinic/owner/OwnerModel';
 import { EndpointError } from '@hilla/frontend';
-import { renderOwnerForm } from 'Frontend/views/owners/render-blocks';
+import { ownerForm } from 'Frontend/views/owners/render-blocks';
 
 @customElement('create-or-update-owner-view')
 export class CreateOrUpdateOwnerView extends View {
@@ -53,7 +53,7 @@ export class CreateOrUpdateOwnerView extends View {
       <h2>Owner</h2>
 
       <form>
-        ${renderOwnerForm(model)}
+        ${ownerForm(model)}
         <vaadin-button @click=${this.submit}>
           ${submitButtonText}
         </vaadin-button>
