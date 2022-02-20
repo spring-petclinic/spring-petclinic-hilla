@@ -70,7 +70,7 @@ export class OwnerDetailsView extends View implements BeforeEnterObserver {
           </div>
         </div>
 
-        <div class="flex flex-col gap-m">
+        <div class="flex flex-col gap-m flex-grow">
           
         <h2>Pets and Visits</h2>
 
