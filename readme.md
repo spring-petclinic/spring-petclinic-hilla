@@ -21,7 +21,7 @@ Petclinic is a [Spring Boot](https://spring.io/guides/gs/spring-boot) applicatio
 
 You can then access petclinic here: http://localhost:8080/
 
-<img width="1042" alt="petclinic-screenshot" src="./doc/images/hilla-petclinic.jpg">
+<img width="1042" alt="petclinic-screenshot" src="./doc/images/hilla-petclinic.png">
 
 > NOTE: Windows users should set `git config core.autocrlf true` to avoid format assertions failing the build (use `--global` to set that flag globally).
 
