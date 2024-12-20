@@ -5,10 +5,10 @@
 
 This is a Hilla implementation of the Spring PetClinic sample project: https://github.com/spring-projects/spring-petclinic
 
-[Hilla](https://hilla.dev/) is a full-stack web framework built specifically for Spring Boot backends. It includes:
+[Hilla](https://vaadin.com/hilla/) is a full-stack React framework for Spring. It includes:
 
 - A large library of [UI components](https://vaadin.com/docs/latest/ds/components)
-- Reactive TypeScript frontend using [Lit](https://lit.dev)
+- Reactive TypeScript frontend using [React](https://react.dev/)
 - Type-safe server communication and TS type generation based on Java
 
 ## Running petclinic locally
@@ -50,8 +50,6 @@ The following items should be installed in your system:
 - Java 8 or newer (full JDK not a JRE).
 - git command line tool (https://help.github.com/articles/set-up-git)
 - Your preferred IDE
-  - Eclipse with the m2e plugin. Note: when m2e is available, there is an m2 icon in `Help -> About` dialog. If m2e is
-    not there, just follow the install process here: https://www.eclipse.org/m2e/
   - [Spring Tools Suite](https://spring.io/tools) (STS)
   - IntelliJ IDEA
   - [VS Code](https://code.visualstudio.com)

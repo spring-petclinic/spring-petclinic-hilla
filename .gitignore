@@ -18,3 +18,5 @@ node_modules/
 frontend/generated/
 pnpmfile.js
 webpack.generated.js
+
+/src/main/frontend/generated/
