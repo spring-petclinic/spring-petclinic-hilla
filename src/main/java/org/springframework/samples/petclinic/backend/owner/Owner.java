@@ -32,7 +32,8 @@ import org.springframework.beans.support.PropertyComparator;
 import org.springframework.core.style.ToStringCreator;
 import org.springframework.samples.petclinic.backend.model.Person;
 
-import com.vaadin.hilla.Nonnull;
+import org.jspecify.annotations.NonNull;
+
 
 /**
  * Simple JavaBean domain object representing an owner.
@@ -48,17 +49,17 @@ public class Owner extends Person {
 
 	@Column(name = "address")
 	@NotEmpty(message = "The address is required")
-	@Nonnull
+	@NonNull
 	private String address;
 
 	@Column(name = "city")
 	@NotEmpty(message = "The city is required")
-	@Nonnull
+	@NonNull
 	private String city;
 
 	@Column(name = "telephone")
 	@NotEmpty(message = "The phone number is required")
-	@Nonnull
+	@NonNull
 	@Digits(fraction = 0, integer = 10, message = "The phone number must be a number of maximum 10 digits")
 	private String telephone;
 
@@ -100,7 +101,7 @@ public class Owner extends Person {
 		this.pets = pets;
 	}
 
-	public @Nonnull List<@Nonnull Pet> getPets() {
+	public @NonNull List<@NonNull Pet> getPets() {
 		List<Pet> sortedPets = new ArrayList<>(getPetsInternal());
 		PropertyComparator.sort(sortedPets, new MutableSortDefinition("name", true, true));
 		return Collections.unmodifiableList(sortedPets);

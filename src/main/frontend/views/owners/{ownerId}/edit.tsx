@@ -4,13 +4,13 @@ import {
     TextField,
     VerticalLayout
 } from "@vaadin/react-components";
-import {translate} from "@vaadin/hilla-react-i18n";
+import {key, translate} from "@vaadin/hilla-react-i18n";
 import {useForm} from "@vaadin/hilla-react-form";
 import OwnerModel
     from "../../../generated/org/springframework/samples/petclinic/backend/owner/OwnerModel";
 import {Button} from "@vaadin/react-components/Button.js";
 import {OwnerService} from "../../../generated/endpoints";
-import {useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router";
 import {useEffect} from "react";
 import {ViewConfig} from "@vaadin/hilla-file-router/types.js";
 import ValidationErrors, {
@@ -58,29 +58,29 @@ export default function EditOwnerView() {
                         { minWidth: '600px', columns: 1 }]
 
                     }>
-                    <h2>{translate('owner')}</h2>
+                    <h2>{translate(key`owner`)}</h2>
                     <FormItem>
-                        <label slot="label">{translate('firstName')}</label>
+                        <label slot="label">{translate(key`firstName`)}</label>
                         <TextField {...field(model.firstName)}></TextField>
                     </FormItem>
                     <FormItem>
-                        <label slot="label">{translate('lastName')}</label>
+                        <label slot="label">{translate(key`lastName`)}</label>
                         <TextField {...field(model.lastName)}></TextField>
                     </FormItem>
                     <FormItem>
-                        <label slot="label">{translate('address')}</label>
+                        <label slot="label">{translate(key`address`)}</label>
                         <TextField {...field(model.address)}></TextField>
                     </FormItem>
                     <FormItem>
-                        <label slot="label">{translate('city')}</label>
+                        <label slot="label">{translate(key`city`)}</label>
                         <TextField {...field(model.city)}></TextField>
                     </FormItem>
                     <FormItem>
-                        <label slot="label">{translate('telephone')}</label>
+                        <label slot="label">{translate(key`telephone`)}</label>
                         <TextField {...field(model.telephone)}></TextField>
                     </FormItem>
                     <FormItem>
-                        <Button  onClick={submitWithErrors} className="edit-button">{translate('updateOwner')}</Button>
+                        <Button  onClick={submitWithErrors} className="edit-button">{translate(key`updateOwner`)}</Button>
                     </FormItem>
                 </FormLayout>
             </VerticalLayout>

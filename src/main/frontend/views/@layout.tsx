@@ -9,10 +9,10 @@ import {
     VerticalLayout
 } from '@vaadin/react-components';
 import { Suspense, useEffect } from 'react';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router';
 import {HorizontalLayout} from "@vaadin/react-components/HorizontalLayout.js";
 import '@vaadin/icons';
-import {translate} from "@vaadin/hilla-react-i18n";
+import {key, translate} from "@vaadin/hilla-react-i18n";
 
 import { ErrorBoundary } from "react-error-boundary";
 
@@ -32,7 +32,7 @@ function Fallback({ error, resetErrorBoundary }) {
 }
 
 export default function MainLayout() {
-  const currentTitle = (useViewConfig()?.title) ? (translate(useViewConfig()?.title!)+ " - Spring PetClinic"):  defaultTitle;
+  const currentTitle = (useViewConfig()?.title) ? (translate(key`useViewConfig()?.title!`)+ " - Spring PetClinic"):  defaultTitle;
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -44,14 +44,14 @@ export default function MainLayout() {
       <AppLayout>
           <header>
               <HorizontalLayout slot="navbar" theme="dark padding" id="header" className="w-full items-center justify-between">
-                  <a href="/" className="navbar-brand"><span>{translate('home')}</span></a>
+                  <a href="/" className="navbar-brand"><span>{translate(key`home`)}</span></a>
                   <SideNav className="side-nav-top" onNavigate={({path}) => navigate(path!)}
                            location={location}>
                       {createMenuItems().map(({to, title, icon}) => (
                           <SideNavItem path={to} key={to}>
                               {icon ?
                                   <Icon icon={icon} slot="prefix"></Icon> : <></>}
-                              {translate(title!)}
+                              {translate(key`title!`)}
                           </SideNavItem>
                       ))}
                   </SideNav>

@@ -5,10 +5,10 @@ import {
     TextField,
     VerticalLayout
 } from "@vaadin/react-components";
-import {translate} from "@vaadin/hilla-react-i18n";
+import {key, translate} from "@vaadin/hilla-react-i18n";
 import {useForm} from "@vaadin/hilla-react-form"
 import {Button} from "@vaadin/react-components/Button.js";
-import {useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router";
 import {ViewConfig} from "@vaadin/hilla-file-router/types.js";
 import {
     OwnerService,
@@ -66,21 +66,21 @@ export default function NewVisitView() {
         <>
             <VerticalLayout theme="padding spacing"
                             className="w-full justify-center items-stretch">
-                <h2>{translate('newVisit')}</h2>
+                <h2>{translate(key`newVisit`)}</h2>
 
-                <h2>{translate('pet')}</h2>
+                <h2>{translate(key`pet`)}</h2>
                 <FormLayout
                     responsiveSteps={[{minWidth: '0', columns: 1},
                         {minWidth: '600px', columns: 4}]
                     }>
-                    <TextField label={translate('name')}
+                    <TextField label={translate(key`name`)}
                                readonly {...field(model.petName)}></TextField>
-                    <DatePicker label={translate('birthDate')}
+                    <DatePicker label={translate(key`birthDate`)}
                                 readonly {...field(model.petBirthDate)}></DatePicker>
 
-                    <TextField label={translate('type')}
+                    <TextField label={translate(key`type`)}
                                readonly {...field(model.petType)}></TextField>
-                    <TextField label={translate('owner')}
+                    <TextField label={translate(key`owner`)}
                                readonly {...field(model.petOwner)}></TextField>
                 </FormLayout>
                 <ValidationErrors errors={validationErrorSignal.value}/>
@@ -90,23 +90,23 @@ export default function NewVisitView() {
                         {minWidth: '600px', columns: 1}]
                     }>
                     <FormItem>
-                        <label slot="label">{translate('visitDate')}</label>
+                        <label slot="label">{translate(key`visitDate`)}</label>
                         <DatePicker {...field(model.visitDate)}></DatePicker>
                     </FormItem>
                     <FormItem>
-                        <label slot="label">{translate('description')}</label>
+                        <label slot="label">{translate(key`description`)}</label>
                         <TextField {...field(model.description)}
                                    className="w-full"></TextField>
                     </FormItem>
                     <FormItem>
                         <Button
-                            onClick={submitWithErrors}>{translate('addVisit')}</Button>
+                            onClick={submitWithErrors}>{translate(key`addVisit`)}</Button>
                     </FormItem>
                 </FormLayout>
                 <Grid items={value.previousVisits} allRowsVisible>
-                    <GridColumn path="date" header={translate('visitDate')}/>
+                    <GridColumn path="date" header={translate(key`visitDate`)}/>
                     <GridColumn path="description"
-                                header={translate('description')}/>
+                                header={translate(key`description`)}/>
                 </Grid>
 
             </VerticalLayout>

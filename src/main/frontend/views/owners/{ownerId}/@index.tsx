@@ -6,13 +6,13 @@ import {
     TextField,
     VerticalLayout
 } from "@vaadin/react-components";
-import {translate} from "@vaadin/hilla-react-i18n";
+import {key, translate} from "@vaadin/hilla-react-i18n";
 import {useForm, useFormArrayPart} from "@vaadin/hilla-react-form";
 import OwnerModel
     from "../../../generated/org/springframework/samples/petclinic/backend/owner/OwnerModel";
 import {Button} from "@vaadin/react-components/Button.js";
 import {OwnerService} from "../../../generated/endpoints";
-import {useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router";
 import {useEffect} from "react";
 import {ViewConfig} from "@vaadin/hilla-file-router/types.js";
 import {HorizontalLayout} from "@vaadin/react-components/HorizontalLayout.js";
@@ -46,28 +46,28 @@ export default function ViewOwnerView() {
                         {minWidth: '600px', columns: 1}]
 
                     }>
-                    <h2>{translate('ownerInformation')}</h2>
+                    <h2>{translate(key`ownerInformation`)}</h2>
                     <FormItem>
-                        <label slot="label">{translate('firstName')}</label>
+                        <label slot="label">{translate(key`firstName`)}</label>
                         <TextField
                             readonly {...field(model.firstName)}></TextField>
                     </FormItem>
                     <FormItem>
-                        <label slot="label">{translate('lastName')}</label>
+                        <label slot="label">{translate(key`lastName`)}</label>
                         <TextField
                             readonly {...field(model.lastName)}></TextField>
                     </FormItem>
                     <FormItem>
-                        <label slot="label">{translate('address')}</label>
+                        <label slot="label">{translate(key`address`)}</label>
                         <TextField
                             readonly {...field(model.address)}></TextField>
                     </FormItem>
                     <FormItem>
-                        <label slot="label">{translate('city')}</label>
+                        <label slot="label">{translate(key`city`)}</label>
                         <TextField readonly {...field(model.city)}></TextField>
                     </FormItem>
                     <FormItem>
-                        <label slot="label">{translate('telephone')}</label>
+                        <label slot="label">{translate(key`telephone`)}</label>
                         <TextField
                             readonly {...field(model.telephone)}></TextField>
                     </FormItem>
@@ -75,14 +75,14 @@ export default function ViewOwnerView() {
                         <HorizontalLayout theme="spacing">
                             <Button onClick={(e) => {
                                 navigate('/owners/' + ownerId + '/edit')
-                            }}>{translate('editOwner')}</Button>
+                            }}>{translate(key`editOwner`)}</Button>
                             <Button onClick={(e) => {
                                 navigate('/owners/' + ownerId + '/pets/new')
-                            }}>{translate('addNewPet')}</Button>
+                            }}>{translate(key`addNewPet`)}</Button>
                         </HorizontalLayout>
                     </FormItem>
                     <VerticalLayout theme="spacing" className="pet-container">
-                        <h2>{translate('petsAndVisits')}</h2>
+                        <h2>{translate(key`petsAndVisits`)}</h2>
 
                         {
                             items.map((pet) => (
@@ -93,33 +93,33 @@ export default function ViewOwnerView() {
 
                                 }>
                                 <FormItem>
-                                    <label slot="label">{translate('name')}</label>
+                                    <label slot="label">{translate(key`name`)}</label>
                                     <TextField
                                         readonly {...field(pet.name)}></TextField>
                                 </FormItem>
                                 <FormItem>
-                                    <label slot="label">{translate('birthDate')}</label>
+                                    <label slot="label">{translate(key`birthDate`)}</label>
                                     <DatePicker
                                         readonly {...field(pet.birthDate)}></DatePicker>
                                 </FormItem>
                                 <FormItem>
-                                    <label slot="label">{translate('type')}</label>
+                                    <label slot="label">{translate(key`type`)}</label>
                                     <ComboBox itemLabelPath="name"
                                         readonly {...field(pet.type)}></ComboBox>
                                 </FormItem>
                             </FormLayout>
                                     <VerticalLayout className="visits" theme="padding spacing">
                                         <Grid items={Array.from(pet.visits)} allRowsVisible>
-                                            <GridColumn path="value.date" header={translate('visitDate')} />
-                                            <GridColumn path="value.description" header={translate('description')} />
+                                            <GridColumn path="value.date" header={translate(key`visitDate`)} />
+                                            <GridColumn path="value.description" header={translate(key`description`)} />
                                         </Grid>
                                         <HorizontalLayout theme="spacing">
                                             <Button onClick={(e) => {
                                                 navigate('/owners/' + ownerId + '/pets/'+pet.id + '/edit')
-                                            }}>{translate('editPet')}</Button>
+                                            }}>{translate(key`editPet`)}</Button>
                                             <Button onClick={(e) => {
                                                 navigate('/owners/' + ownerId + '/pets/'+pet.id+'/visits/new')
-                                            }}>{translate('addVisit')}</Button>
+                                            }}>{translate(key`addVisit`)}</Button>
                                         </HorizontalLayout>
                                     </VerticalLayout>
                                 </HorizontalLayout>

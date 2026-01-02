@@ -1,6 +1,6 @@
 import { ViewConfig } from '@vaadin/hilla-file-router/types.js';
 import {VerticalLayout} from "@vaadin/react-components";
-import {translate} from "@vaadin/hilla-react-i18n";
+import {key, translate} from "@vaadin/hilla-react-i18n";
 import {useEffect} from "react";
 import {ping} from "../generated/ErrorService";
 import { useErrorBoundary } from "react-error-boundary";
@@ -27,7 +27,7 @@ export default function ErrorView() {
         <>
             <VerticalLayout theme="padding spacing"
                             className="w-full items-center justify-center">
-                <h2>{translate('error')}</h2>
+                <h2>{translate(key`error`)}</h2>
             </VerticalLayout>
         </>
     );

@@ -7,7 +7,7 @@ import {
     VerticalLayout
 } from "@vaadin/react-components";
 import {useMemo} from "react";
-import {translate} from "@vaadin/hilla-react-i18n";
+import {key, translate} from "@vaadin/hilla-react-i18n";
 import {
     countByLastName,
     findByLastName
@@ -17,7 +17,7 @@ import Owner
 import {HorizontalLayout} from "@vaadin/react-components/HorizontalLayout.js";
 import {TextField} from "@vaadin/react-components/TextField.js";
 import {Button} from "@vaadin/react-components/Button.js";
-import {NavLink, useNavigate} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router";
 
 export const config: ViewConfig = {
   menu: { order: 1, icon: 'vaadin:search' },
@@ -84,28 +84,28 @@ export default function FindOwnersView() {
       <>
           <VerticalLayout theme="padding spacing"
                           className="w-full justify-center">
-              <h2>{translate('findOwners')}</h2>
+              <h2>{translate(key`findOwners`)}</h2>
               <HorizontalLayout  theme="spacing" className="items-baseline">
-                  <TextField label={translate('lastName')}
+                  <TextField label={translate(key`lastName`)}
                              onValueChanged={(e) => {
                                  searchFieldValue.value = e.detail.value.trim();
                   }}></TextField>
 
                   <Button theme="primary" onClick={(e) => {
                       searchTerm.value = searchFieldValue.value;
-}}>{translate('findOwner')}</Button>
+}}>{translate(key`findOwner`)}</Button>
                   <Button onClick={(e) => {
                       navigate('/owners/new')
-                  }}>{translate('addOwner')}</Button>
+                  }}>{translate(key`addOwner`)}</Button>
               </HorizontalLayout>
               <Grid dataProvider={dataProvider}>
-                  <GridColumn header={translate('name')}>
+                  <GridColumn header={translate(key`name`)}>
                       {({ item }) => editRenderer(item)}
                   </GridColumn>
-                  <GridColumn path="address" header={translate('address')} />
-                  <GridColumn path="city" header={translate('city')} />
-                  <GridColumn path="telephone" header={translate('telephone')} />-
-                  <GridColumn header={translate('pets')} >
+                  <GridColumn path="address" header={translate(key`address`)} />
+                  <GridColumn path="city" header={translate(key`city`)} />
+                  <GridColumn path="telephone" header={translate(key`telephone`)} />-
+                  <GridColumn header={translate(key`pets`)} >
                       {({ item }) => petsRenderer(item)}
                   </GridColumn>
               </Grid>

@@ -30,7 +30,7 @@ import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.samples.petclinic.backend.model.Person;
 
-import com.vaadin.hilla.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Simple JavaBean domain object representing a veterinarian.
@@ -61,7 +61,7 @@ public class Vet extends Person {
 	}
 
 	@XmlElement
-	public @Nonnull List<@Nonnull Specialty> getSpecialties() {
+	public @NonNull List<@NonNull Specialty> getSpecialties() {
 		List<Specialty> sortedSpecs = new ArrayList<>(getSpecialtiesInternal());
 		PropertyComparator.sort(sortedSpecs, new MutableSortDefinition("name", true, true));
 		return Collections.unmodifiableList(sortedSpecs);

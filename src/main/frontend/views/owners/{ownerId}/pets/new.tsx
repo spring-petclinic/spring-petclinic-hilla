@@ -6,10 +6,10 @@ import {
     TextField,
     VerticalLayout
 } from "@vaadin/react-components";
-import {translate} from "@vaadin/hilla-react-i18n";
+import {key, translate} from "@vaadin/hilla-react-i18n";
 import {useForm} from "@vaadin/hilla-react-form"
 import {Button} from "@vaadin/react-components/Button.js";
-import {useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router";
 import {ViewConfig} from "@vaadin/hilla-file-router/types.js";
 import PetModel
     from "../../../../generated/org/springframework/samples/petclinic/backend/owner/PetModel";
@@ -73,10 +73,10 @@ export default function NewPetView() {
                         {minWidth: '600px', columns: 1}]
 
                     }>
-                    <h2>{translate('newPet')}</h2>
+                    <h2>{translate(key`newPet`)}</h2>
                     {(owner.value) ?
                         <FormItem>
-                            <label slot="label">{translate('owner')}</label>
+                            <label slot="label">{translate(key`owner`)}</label>
                             <TextField
                                 value={`${owner.value!.firstName} ${owner.value!.lastName}`}
                                 readonly></TextField>
@@ -84,21 +84,21 @@ export default function NewPetView() {
                         : <></>
                     }
                     <FormItem>
-                        <label slot="label">{translate('name')}</label>
+                        <label slot="label">{translate(key`name`)}</label>
                         <TextField {...field(model.name)}></TextField>
                     </FormItem>
                     <FormItem>
-                        <label slot="label">{translate('birthDate')}</label>
+                        <label slot="label">{translate(key`birthDate`)}</label>
                         <DatePicker {...field(model.birthDate)}></DatePicker>
                     </FormItem>
                     <FormItem>
-                        <label slot="label">{translate('type')}</label>
+                        <label slot="label">{translate(key`type`)}</label>
                         <ComboBox {...field(model.type)} itemLabelPath="name"
                                   items={items.value}></ComboBox>
                     </FormItem>
                     <FormItem>
                         <Button
-                            onClick={submitWithErrors}>{translate('addPet')}</Button>
+                            onClick={submitWithErrors}>{translate(key`addPet`)}</Button>
                     </FormItem>
                 </FormLayout>
             </VerticalLayout>
