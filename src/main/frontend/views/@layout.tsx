@@ -12,7 +12,7 @@ import { Suspense, useEffect } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router';
 import {HorizontalLayout} from "@vaadin/react-components/HorizontalLayout.js";
 import '@vaadin/icons';
-import {key, translate} from "@vaadin/hilla-react-i18n";
+import {key, translate, i18n} from "@vaadin/hilla-react-i18n";
 
 import { ErrorBoundary } from "react-error-boundary";
 
@@ -32,7 +32,7 @@ function Fallback({ error, resetErrorBoundary }) {
 }
 
 export default function MainLayout() {
-  const currentTitle = (useViewConfig()?.title) ? (translate(key`useViewConfig()?.title!`)+ " - Spring PetClinic"):  defaultTitle;
+  const currentTitle = (useViewConfig()?.title) ? (i18n.translateDynamic(useViewConfig()?.title) + " — Spring PetClinic"):  defaultTitle;
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -51,7 +51,7 @@ export default function MainLayout() {
                           <SideNavItem path={to} key={to}>
                               {icon ?
                                   <Icon icon={icon} slot="prefix"></Icon> : <></>}
-                              {translate(key`title!`)}
+                              {i18n.translateDynamic(title)}
                           </SideNavItem>
                       ))}
                   </SideNav>
