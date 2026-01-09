@@ -36,6 +36,7 @@ import com.vaadin.flow.theme.lumo.Lumo;
  * PetClinic Spring Boot Application.
  */
 @StyleSheet(Lumo.STYLESHEET)
+@StyleSheet(Lumo.UTILITY_STYLESHEET)
 @StyleSheet("styles.css")
 @NpmPackage(value = "react-error-boundary", version = "4.0.13")
 @SpringBootApplication

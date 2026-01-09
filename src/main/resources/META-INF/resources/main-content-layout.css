@@ -1,8 +1,23 @@
 
+vaadin-app-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+vaadin-app-layout main {
+    flex: 1;
+}
+
 footer.footer {
     display: flex;
     justify-content: center;
+    align-items: center;
     width: 100%;
+    padding: var(--lumo-space-m);
+    gap: var(--lumo-space-l);
+    background-color: var(--lumo-contrast-5pct);
+    border-top: 1px solid var(--lumo-contrast-10pct);
 }
 
 .footer img {
