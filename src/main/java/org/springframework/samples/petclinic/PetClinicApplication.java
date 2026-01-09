@@ -25,18 +25,20 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.annotation.Bean;
 
 import com.vaadin.flow.component.dependency.NpmPackage;
+import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.i18n.DefaultI18NProvider;
 import com.vaadin.flow.i18n.I18NProvider;
 import com.vaadin.flow.server.PWA;
-import com.vaadin.flow.theme.Theme;
+import com.vaadin.flow.theme.lumo.Lumo;
 
 /**
  * PetClinic Spring Boot Application.
  */
+@StyleSheet(Lumo.STYLESHEET)
+@StyleSheet("styles.css")
 @NpmPackage(value = "react-error-boundary", version = "4.0.13")
 @SpringBootApplication
-@Theme("petclinic")
 @PWA(name = "Pet Clinic", shortName = "Pet Clinic", offlineResources = { "icons/icon.png" })
 public class PetClinicApplication extends SpringBootServletInitializer implements AppShellConfigurator {
 
