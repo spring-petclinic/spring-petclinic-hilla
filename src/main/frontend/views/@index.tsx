@@ -14,7 +14,7 @@ export default function HomeView() {
   return (
       <>
           <VerticalLayout theme="padding spacing"
-                          className="w-full items-center justify-center">
+                          className="w-full items-center justify-center home">
               <h2>{translate(key`welcome`)}</h2>
               <img src="./images/pets.png" alt="Pets" />
           </VerticalLayout>

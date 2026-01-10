@@ -1,3 +1,35 @@
+[slot="navbar"] a.navbar-brand {
+  background: url("./images/spring-logo-dataflow.png") -1px -1px no-repeat;
+  display: inline-block;
+  text-decoration: none;
+}
+
+[slot="navbar"] a.navbar-brand span {
+  display: block;
+  width: 229px;
+  height: 46px;
+  background: url("./images/spring-logo-dataflow.png") -1px -48px no-repeat;
+  opacity: 0;
+  font-size: 1px;
+}
+
+[slot="navbar"] a:hover.navbar-brand span {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  [slot="navbar"] a.navbar-brand {
+    display: none;
+  }
+}
+
+[slot="navbar"] vaadin-tabs {
+    text-transform: uppercase;
+    max-width: 100%;
+}
+[slot="navbar"] vaadin-tab vaadin-icon {
+    margin-right: var(--lumo-space-s);
+}
 
 main {
   height: calc(100% - 150px);
@@ -5,6 +37,10 @@ main {
 
 main vaadin-vertical-layout {
   height: 100%;
+}
+
+main .home {
+  background-color: #efefef;
 }
 
 footer {
