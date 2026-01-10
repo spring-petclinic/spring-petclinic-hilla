@@ -1,15 +1,6 @@
-vaadin-side-nav.side-nav-top::part(children) {
-    display: flex;
-    flex-wrap: wrap;
+vaadin-tab {
     text-transform: uppercase;
 }
-
-
-vaadin-side-nav.side-nav-top vaadin-side-nav-item[current]::part(link) {
-    color: var(--lumo-header-text-color);
+vaadin-tab vaadin-icon {
+    margin-right: var(--lumo-space-s);
 }
-
-vaadin-side-nav.side-nav-top vaadin-side-nav-item::part(link):hover {
-    color: var(--lumo-primary-text-color);
-}
-

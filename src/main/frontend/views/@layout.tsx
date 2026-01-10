@@ -2,17 +2,17 @@ import { Button } from '@vaadin/react-components/Button';
 import { createMenuItems, useViewConfig } from '@vaadin/hilla-file-router/runtime.js';
 import {
     AppLayout,
-    DrawerToggle,
     Icon,
-    SideNav,
-    SideNavItem,
+    Tabs,
+    Tab,
     VerticalLayout
 } from '@vaadin/react-components';
-import { Suspense, useEffect } from 'react';
-import { Outlet, useLocation, useNavigate } from 'react-router';
+import { Suspense, useEffect, useRef } from 'react';
+import { Outlet, useLocation, useNavigate, NavLink } from 'react-router';
 import {HorizontalLayout} from "@vaadin/react-components/HorizontalLayout.js";
 import '@vaadin/icons';
 import {key, translate, i18n} from "@vaadin/hilla-react-i18n";
+
 
 import { ErrorBoundary } from "react-error-boundary";
 
@@ -33,8 +33,16 @@ function Fallback({ error, resetErrorBoundary }) {
 
 export default function MainLayout() {
   const currentTitle = (useViewConfig()?.title) ? (i18n.translateDynamic(useViewConfig()?.title) + " — Spring PetClinic"):  defaultTitle;
-  const navigate = useNavigate();
   const location = useLocation();
+
+  const menuItems = createMenuItems();
+  const tabsRef = useRef<any>(null);
+
+  useEffect(() => {
+      // On page load/reload, sync selected tab with the active NavLink
+      tabsRef.current.selected = [...tabsRef.current?.querySelectorAll('vaadin-tab')]
+        .findIndex((tab: Element) => tab.querySelector('a.active'));
+  }, []);
 
   useEffect(() => {
     document.title = currentTitle;
@@ -45,16 +53,18 @@ export default function MainLayout() {
           <header>
               <HorizontalLayout slot="navbar" theme="dark padding" id="header" className="w-full items-center justify-between">
                   <a href="/" className="navbar-brand"><span>{translate(key`home`)}</span></a>
-                  <SideNav className="side-nav-top" onNavigate={({path}) => navigate(path!)}
-                           location={location}>
-                      {createMenuItems().map(({to, title, icon}) => (
-                          <SideNavItem path={to} key={to}>
-                              {icon ?
-                                  <Icon icon={icon} slot="prefix"></Icon> : <></>}
-                              {i18n.translateDynamic(title)}
-                          </SideNavItem>
+
+                  <Tabs className="side-nav-top" ref={tabsRef}>
+                      {menuItems.map(({to, title, icon}) => (
+                          <Tab key={to}>
+                              <NavLink  to={to} key={to}>
+                                {icon ?
+                                    <Icon icon={icon} slot="prefix"></Icon> : <></>}
+                                {i18n.translateDynamic(title)}
+                              </NavLink>
+                          </Tab>
                       ))}
-                  </SideNav>
+                  </Tabs>
               </HorizontalLayout>
           </header>
           <main>
