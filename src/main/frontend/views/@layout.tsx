@@ -8,7 +8,7 @@ import {
     VerticalLayout
 } from '@vaadin/react-components';
 import { Suspense, useEffect, useRef } from 'react';
-import { Outlet, useLocation, useNavigate, NavLink } from 'react-router';
+import { Outlet, useLocation, NavLink } from 'react-router';
 import {HorizontalLayout} from "@vaadin/react-components/HorizontalLayout.js";
 import '@vaadin/icons';
 import {key, translate, i18n} from "@vaadin/hilla-react-i18n";
@@ -57,7 +57,7 @@ export default function MainLayout() {
                   <Tabs className="side-nav-top" ref={tabsRef}>
                       {menuItems.map(({to, title, icon}) => (
                           <Tab key={to}>
-                              <NavLink  to={to} key={to}>
+                              <NavLink to={to} key={to}>
                                 {icon ?
                                     <Icon icon={icon} slot="prefix"></Icon> : <></>}
                                 {i18n.translateDynamic(title)}
