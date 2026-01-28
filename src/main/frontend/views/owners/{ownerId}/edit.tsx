@@ -80,7 +80,7 @@ export default function EditOwnerView() {
                         <TextField {...field(model.telephone)}></TextField>
                     </FormItem>
                     <FormItem>
-                        <Button  onClick={submitWithErrors} className="edit-button">{translate(key`updateOwner`)}</Button>
+                        <Button onClick={submitWithErrors}>{translate(key`updateOwner`)}</Button>
                     </FormItem>
                 </FormLayout>
             </VerticalLayout>

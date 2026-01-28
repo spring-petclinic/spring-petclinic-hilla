@@ -81,7 +81,7 @@ export default function ViewOwnerView() {
                             }}>{translate(key`addNewPet`)}</Button>
                         </HorizontalLayout>
                     </FormItem>
-                    <VerticalLayout theme="spacing" className="pet-container">
+                    <VerticalLayout theme="spacing">
                         <h2>{translate(key`petsAndVisits`)}</h2>
 
                         {
