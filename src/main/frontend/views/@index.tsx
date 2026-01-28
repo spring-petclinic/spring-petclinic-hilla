@@ -1,5 +1,4 @@
 import { ViewConfig } from '@vaadin/hilla-file-router/types.js';
-import { useSignal } from '@vaadin/hilla-react-signals';
 import {VerticalLayout} from "@vaadin/react-components";
 import {key, translate} from "@vaadin/hilla-react-i18n";
 
@@ -9,15 +8,11 @@ export const config: ViewConfig = {
 };
 
 export default function HomeView() {
-  const name = useSignal('');
-
   return (
-      <>
-          <VerticalLayout theme="padding spacing"
-                          className="w-full items-center justify-center home">
-              <h2>{translate(key`welcome`)}</h2>
-              <img src="./images/pets.png" alt="Pets" />
-          </VerticalLayout>
-      </>
+      <VerticalLayout theme="padding spacing"
+                      className="w-full items-center justify-center home">
+          <h2>{translate(key`welcome`)}</h2>
+          <img src="./images/pets.png" alt="Pets" />
+      </VerticalLayout>
   );
 }

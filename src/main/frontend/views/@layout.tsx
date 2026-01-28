@@ -4,8 +4,7 @@ import {
     AppLayout,
     Icon,
     Tabs,
-    Tab,
-    VerticalLayout
+    Tab
 } from '@vaadin/react-components';
 import { Suspense, useEffect, useRef } from 'react';
 import { Outlet, useLocation, NavLink } from 'react-router';
@@ -21,13 +20,17 @@ const defaultTitle = document.title;
 // @ts-ignore
 function Fallback({ error, resetErrorBoundary }) {
     return (
-        <VerticalLayout role="alert" className="w-full items-center justify-between my-l">
+        <div role="alert" className="error-fallback">
             <h1>Something went wrong</h1>
             <p style={{ color: "red" }}>{error.message}</p>
-            <Button theme="primary" onClick={(e) => {
-             resetErrorBoundary();
-            }}>Retry</Button>
-        </VerticalLayout>
+            {error.type && <p><strong>Type:</strong> {error.type}</p>}
+            {error.detail && (
+                <pre>
+                    {typeof error.detail === 'string' ? error.detail : JSON.stringify(error.detail, null, 2)}
+                </pre>
+            )}
+            <Button theme="primary" onClick={() => resetErrorBoundary()}>Retry</Button>
+        </div>
     );
 }
 
