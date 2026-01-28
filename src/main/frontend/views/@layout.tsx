@@ -50,34 +50,32 @@ export default function MainLayout() {
 
   return (
       <AppLayout>
-          <header>
-              <HorizontalLayout slot="navbar" theme="dark padding" id="header" className="w-full items-center justify-between">
-                  <a href="/" className="navbar-brand"><span>{translate(key`home`)}</span></a>
-
-                  <Tabs className="side-nav-top" ref={tabsRef}>
-                      {menuItems.map(({to, title, icon}) => (
-                          <Tab key={to}>
-                              <NavLink to={to} key={to}>
-                                {icon ?
-                                    <Icon icon={icon} slot="prefix"></Icon> : <></>}
-                                {i18n.translateDynamic(title)}
-                              </NavLink>
-                          </Tab>
-                      ))}
-                  </Tabs>
-              </HorizontalLayout>
-          </header>
-          <main>
-              <ErrorBoundary FallbackComponent={Fallback} key={location.pathname}>
-                  <Suspense>
-                      <div style={{display: 'contents'}}><Outlet/></div>
-                  </Suspense>
-              </ErrorBoundary>
-          </main>
-          <footer className="footer">
-              <img src="./images/vaadin.png" alt="Vaadin"/>
-              <img src="./images/spring-logo.svg" alt="Spring"/>
-          </footer>
+          <HorizontalLayout slot="navbar" theme="dark padding" id="header" className="w-full items-center justify-between">
+              <a href="/" className="navbar-brand"><span>{translate(key`home`)}</span></a>
+              <Tabs ref={tabsRef}>
+                  {menuItems.map(({to, title, icon}) => (
+                      <Tab key={to}>
+                          <NavLink to={to}>
+                              {icon ? <Icon icon={icon} slot="prefix"></Icon> : <></>}
+                              {i18n.translateDynamic(title)}
+                          </NavLink>
+                      </Tab>
+                  ))}
+              </Tabs>
+          </HorizontalLayout>
+          <div className="content-wrapper">
+              <main>
+                  <ErrorBoundary FallbackComponent={Fallback} key={location.pathname}>
+                      <Suspense>
+                          <Outlet />
+                      </Suspense>
+                  </ErrorBoundary>
+              </main>
+              <footer className="footer">
+                  <img src="./images/vaadin.png" alt="Vaadin" />
+                  <img src="./images/spring-logo.svg" alt="Spring" />
+              </footer>
+          </div>
       </AppLayout>
   );
 }

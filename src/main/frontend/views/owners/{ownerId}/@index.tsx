@@ -40,7 +40,7 @@ export default function ViewOwnerView() {
     return (
         <>
             <VerticalLayout theme="padding spacing"
-                            className="w-full justify-center">
+                            className="w-full">
                 <FormLayout
                     responsiveSteps={[{minWidth: '0', columns: 1},
                         {minWidth: '600px', columns: 1}]
