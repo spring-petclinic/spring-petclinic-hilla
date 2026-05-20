@@ -1,0 +1,15 @@
+{
+  "recommendations": [
+     "vscjava.vscode-java-debug",
+      "vscjava.vscode-java-pack",
+      "vscjava.vscode-gradle",
+      "vscjava.vscode-maven",
+      "vscjava.vscode-java-dependency",
+      "vscjava.vscode-java-test",
+      "redhat.java",
+      "redhat.vscode-yaml",    
+      "vscjava.vscode-spring-boot-dashboard",
+      "vscjava.vscode-spring-initializr",
+      "dbaeumer.vscode-eslint"
+  ]
+}

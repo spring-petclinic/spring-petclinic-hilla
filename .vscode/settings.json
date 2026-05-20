@@ -1,0 +1,27 @@
+{
+  "kiroAgent.agentIgnoreFiles":[".gitignore", ".kiroignore"],
+  "kiroAgent.trustedCommands": [
+    "alias",
+    "dlx",
+    "git commit *",
+    "kind",
+    "kubectl config",
+    "mkdir",
+    "mvn",
+    "npm",
+    "npx",
+    "pnpm"
+  ],
+   "kiroAgent.commandDenylist": [
+    "rm -rf",
+    "sudo",
+    "chmod 777",
+    "eval",
+    "curl | sh",
+    "wget | sh",
+    "> /dev/",
+    "mkfs",
+    "dd if=",
+    "git push *"
+  ]
+}
